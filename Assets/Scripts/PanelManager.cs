@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class PanelManager : MonoBehaviour
 {
-    RectTransform rt;
+    public Animator InfoPanelAnimator;
+    public Animation AnimationDisparition;
+    public GameObject InfoPanel;
 
     // Start is called before the first frame update
     void Start()
     {
-        rt = GetComponent<RectTransform>();
+        
     }
 
     // Update is called once per frame
@@ -18,9 +20,20 @@ public class PanelManager : MonoBehaviour
         
     }
 
-    void OnEnable()
+    public void Retour()
     {
+        
+        StartCoroutine(DisparitionPanel());
         
     }
 
+
+    IEnumerator DisparitionPanel()
+    {
+        InfoPanelAnimator.SetTrigger("Disparition");
+        yield return new WaitForSeconds(1);
+        InfoPanel.SetActive(false);
+       
+    }
 }
+
