@@ -7,18 +7,21 @@ using UnityEngine.SceneManagement;
 
 public class interviews : MonoBehaviour
 {
-    public RawImage rawImage;
+    public GameObject rawImageGameObject;
     public VideoPlayer videoPlayer;
     public AudioSource audioSource;
-    public Button retourAccueilBoutton;
-    public Button fermerPage;
+    public GameObject retourAccueilBoutton;
+    public GameObject listVideos;
 
     public int id = 0;
+    private Image image;
+
+    public object EventUnityEngine { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
-        rawImage.enabled = false;
+        rawImageGameObject.active = false;
     }
 
     // Update is called once per frame
@@ -29,7 +32,9 @@ public class interviews : MonoBehaviour
 
     public void LanceVideoClick()
     {
-        StartCoroutine("LanceVideo", id);
+        // récupérer image
+        image = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInParent<Image>();
+        StartCoroutine("LanceVideo");
     }
 
     public void RetourAccueil()
@@ -39,25 +44,27 @@ public class interviews : MonoBehaviour
 
     public void FermerFenêtre()
     {
-        rawImage.enabled = false;
-        retourAccueilBoutton.enabled = true;
-        fermerPage.enabled = false;
+        rawImageGameObject.active = false;
+        retourAccueilBoutton.active = true;
+        listVideos.active = true;
     }
 
-    IEnumerable LanceVideo(int id)
+    IEnumerator LanceVideo()
     {
-        rawImage.enabled = true;
-        retourAccueilBoutton.enabled = false;
-        fermerPage.enabled = true;
-        videoPlayer.Prepare();
+        rawImageGameObject.GetComponent<RawImage>().texture = image.sprite.texture;
+        rawImageGameObject.active = true;
+        retourAccueilBoutton.active = false;
+        listVideos.active = false;
+        // videoPlayer.Prepare();
         WaitForSeconds attente = new WaitForSeconds(1);
-        while(videoPlayer.isPrepared)
+        /*while(videoPlayer.isPrepared)
         {
             yield return attente;
             break; 
-        }
-        rawImage.texture = videoPlayer.texture;
-        videoPlayer.Play();
-        audioSource.Play();
+        }*/
+        /*videoPlayer.Play();
+        audioSource.Play();*/
+        yield return attente;
+        StopCoroutine("LanceVideo");
     }
 }
