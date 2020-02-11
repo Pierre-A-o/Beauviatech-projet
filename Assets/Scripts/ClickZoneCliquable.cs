@@ -30,11 +30,4 @@ public class ClickZoneCliquable : MonoBehaviour
         }
     }
 
-  
-
-    public void Retour()
-    {
-        FenetreInfo.SetActive(false);
-    }
-
 }
