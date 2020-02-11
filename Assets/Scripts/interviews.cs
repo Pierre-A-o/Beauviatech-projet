@@ -14,7 +14,7 @@ public class interviews : MonoBehaviour
     public GameObject listVideos;
 
     public int id = 0;
-    private Image image;
+    private RawImage image;
 
     public object EventUnityEngine { get; private set; }
 
@@ -33,12 +33,13 @@ public class interviews : MonoBehaviour
     public void LanceVideoClick()
     {
         // récupérer image
-        image = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInParent<Image>();
+        image = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInParent<RawImage>();
         StartCoroutine("LanceVideo");
     }
 
     public void RetourAccueil()
     {
+        //TODO Effectuer un changement dynamique à la place
         SceneManager.LoadScene("PAScene");
     }
 
@@ -51,7 +52,7 @@ public class interviews : MonoBehaviour
 
     IEnumerator LanceVideo()
     {
-        rawImageGameObject.GetComponent<RawImage>().texture = image.sprite.texture;
+        rawImageGameObject.GetComponent<RawImage>().texture = image.texture;
         rawImageGameObject.active = true;
         retourAccueilBoutton.active = false;
         listVideos.active = false;

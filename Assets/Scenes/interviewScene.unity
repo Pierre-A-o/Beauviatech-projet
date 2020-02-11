@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4465782, g: 0.49641252, b: 0.5748167, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641252, b: 0.5748167, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -786,7 +786,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 49.99991, y: -0.000015258789}
+  m_AnchoredPosition: {x: 49.99991, y: 0.000015258789}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &536268111
@@ -1499,7 +1499,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1918990656}
   m_Direction: 2
   m_Value: 0.9999999
-  m_Size: 0.62202215
+  m_Size: 0.6220222
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1749,21 +1749,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 9133675407663951746, guid: 5f6dde3dcb836904f8e86bcbbab79b7a,
-        type: 3}
-      propertyPath: m_Texture
-      value: 
-      objectReference: {fileID: 2800000, guid: c9040b633ceaa6d44bfda5088a02a52f, type: 3}
-    - target: {fileID: 3401681457881414695, guid: 5f6dde3dcb836904f8e86bcbbab79b7a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1598824985}
-    - target: {fileID: 3401681457881414695, guid: 5f6dde3dcb836904f8e86bcbbab79b7a,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LanceVideoClick
-      objectReference: {fileID: 0}
     - target: {fileID: 6152448526762163065, guid: 5f6dde3dcb836904f8e86bcbbab79b7a,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -1819,6 +1804,21 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3401681457881414695, guid: 5f6dde3dcb836904f8e86bcbbab79b7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1598824985}
+    - target: {fileID: 3401681457881414695, guid: 5f6dde3dcb836904f8e86bcbbab79b7a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LanceVideoClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 9133675407663951746, guid: 5f6dde3dcb836904f8e86bcbbab79b7a,
+        type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: c9040b633ceaa6d44bfda5088a02a52f, type: 3}
     - target: {fileID: 1314860828, guid: 5f6dde3dcb836904f8e86bcbbab79b7a, type: 3}
       propertyPath: m_Enabled
       value: 1
