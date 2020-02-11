@@ -231,6 +231,7 @@ MonoBehaviour:
   hiddenPosition: {fileID: 1874406594}
   revealedPosition: {fileID: 398914665}
   isRevealed: 0
+  speed: 2
   tempMenuPosition: 0
 --- !u!1 &257986131
 GameObject:
@@ -245,7 +246,7 @@ GameObject:
   - component: {fileID: 257986134}
   - component: {fileID: 257986133}
   m_Layer: 5
-  m_Name: Button (5)
+  m_Name: MicroSceneButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,7 +311,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 257986134}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1354441916}
+        m_MethodName: loadMicroScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &257986134
@@ -1116,8 +1128,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000038147, y: 0.80501}
-  m_SizeDelta: {x: 51.32, y: 49.71}
+  m_AnchoredPosition: {x: -0.0000038147, y: 0.000017345}
+  m_SizeDelta: {x: 51.32, y: 48.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1078892417
 MonoBehaviour:
@@ -1327,7 +1339,7 @@ GameObject:
   - component: {fileID: 1292548128}
   - component: {fileID: 1292548127}
   m_Layer: 5
-  m_Name: Button (6)
+  m_Name: FirstCameraButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1392,7 +1404,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1292548128}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1354441916}
+        m_MethodName: loadFirstCameraScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1292548128
@@ -1443,6 +1466,7 @@ GameObject:
   - component: {fileID: 1354441913}
   - component: {fileID: 1354441915}
   - component: {fileID: 1354441914}
+  - component: {fileID: 1354441916}
   m_Layer: 5
   m_Name: MenuPanel
   m_TagString: Untagged
@@ -1510,6 +1534,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1354441912}
   m_CullTransparentMesh: 0
+--- !u!114 &1354441916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1354441912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836d36c8bb2429644afff11da9b47f73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1387212918
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,7 +1559,7 @@ GameObject:
   - component: {fileID: 1387212921}
   - component: {fileID: 1387212920}
   m_Layer: 5
-  m_Name: Button (4)
+  m_Name: SecondCameraButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1588,7 +1624,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1387212921}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1354441916}
+        m_MethodName: loadSecondCameraScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1387212921
@@ -1740,7 +1787,7 @@ GameObject:
   - component: {fileID: 1569714416}
   - component: {fileID: 1569714415}
   m_Layer: 5
-  m_Name: Button (3)
+  m_Name: ThirdCameraButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1805,7 +1852,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1569714416}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1354441916}
+        m_MethodName: loadThirdCameraScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1569714416

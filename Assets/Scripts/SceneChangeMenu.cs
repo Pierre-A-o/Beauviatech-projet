@@ -1,66 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneChangeMenu : MonoBehaviour
 {
-    
-    //Process touch for panel display on if the touch is less than this threshold.
-    private float leftEdge = Screen.width * 0.25f;
-
-    //Minimum swipe distance for showing/hiding the panel.
-    float swipeDistance = 10f;
-
-
-    float startXPos;
-    bool processTouch = false;
-    bool isExpanded = false;
-    public Animation panelAnimation;
-
-
-
-    void Update(){
-        if(Input.touches.Length>0)
-            Panel(Input.GetTouch(0));
+    void Start()
+    {
     }
 
-    void Panel (Touch touch)
+    void Update(){}
+
+    public void loadFirstCameraScene(){
+          loadScene("PAScene");
+    }
+
+    public void loadSecondCameraScene(){
+          loadScene("SecondCameraScene");
+    }
+
+    public void loadThirdCameraScene(){
+          loadScene("ThirdCameraScene");
+    }
+
+    public void loadMicroScene(){
+          loadScene("MicroScene");
+    }
+
+    private void loadScene(string sceneName)
     {
-        switch (touch.phase) {
-        case TouchPhase.Began:
-            //Get the start position of touch.
-
-            startXPos = touch.position.x;
-            Debug.Log(startXPos);
-            //Check if we need to process this touch for showing panel.
-            if (startXPos < leftEdge) {
-                processTouch = true;
-            }
-            break;
-        case TouchPhase.Ended:
-            if (processTouch) {
-                //Determine how far the finger was swiped.
-                float deltaX = touch.position.x - startXPos;
-
-
-                if(isExpanded && deltaX < (-swipeDistance))
-                {
-
-                    panelAnimation.CrossFade("SlideOut");
-                    isExpanded = false;
-                } 
-                else if(!isExpanded && deltaX > swipeDistance) 
-                {
-                    panelAnimation.CrossFade("SlideIn");
-                    isExpanded = true;
-                }
-
-                startXPos = 0f;
-                processTouch = false;
-            }
-            break;
-        default:
-            return;
-        }
+        SceneManager.LoadScene(sceneName);
     }
 }

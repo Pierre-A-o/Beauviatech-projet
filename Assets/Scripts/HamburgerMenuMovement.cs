@@ -26,24 +26,19 @@ public class HamburgerMenuMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      /*   if(isRevealed){
+        if (isRevealed){
             this.hideOrRevealMenu(revealedPosition, hiddenPosition);
         }else{
             this.hideOrRevealMenu(hiddenPosition, revealedPosition);
-        }*/
-
-        
-        
+        }
     }
 
      private void hideOrRevealMenu(GameObject targetPositionObject, GameObject currentPositionObject)
      {
-        Vector3 newVector = targetPositionObject.transform.position - currentPositionObject.transform.position;
-        menuPanel.transform.Translate(newVector * speed * Time.deltaTime); 
 
-        
+        menuPanel.transform.position = Vector3.Lerp(menuPanel.transform.position, targetPositionObject.transform.position, Time.deltaTime * speed);
 
-       /* if(menuPanel.transform.localPosition.x == tempMenuPosition)
+       if (menuPanel.transform.localPosition.x == tempMenuPosition)
         {
             isRevealed = false;
             menuPanel.transform.position = targetPositionObject.transform.position;
@@ -52,30 +47,13 @@ public class HamburgerMenuMovement : MonoBehaviour
 
         if(isRevealed)
             tempMenuPosition = menuPanel.transform.position.x;
-
-       */
+            
      }
 
 
      
      public void clickOnHamburgerButton()
      {
-         if(isRevealed){
-            cible = hiddenPosition.transform;
-            isRevealed = ! isRevealed;
-        }else{
-            cible = revealedPosition.transform;
-            isRevealed = ! isRevealed;
-        }
-         StartCoroutine(transition());
+        isRevealed = !isRevealed;
      }
-
-    IEnumerator transition()
-    {
-        Vector3 newVector = cible.position - menuPanel.transform.position;
-        menuPanel.transform.Translate(newVector * speed * Time.deltaTime);
-        yield return null;
-    }
-
-
 }
