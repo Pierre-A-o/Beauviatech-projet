@@ -13,6 +13,8 @@ public class interviews : MonoBehaviour
     public GameObject retourAccueilBoutton;
     public GameObject listVideos;
 
+    public List<string> test;
+
     public int id = 0;
     private RawImage image;
 
@@ -21,7 +23,7 @@ public class interviews : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rawImageGameObject.active = false;
+        rawImageGameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -32,7 +34,6 @@ public class interviews : MonoBehaviour
 
     public void LanceVideoClick()
     {
-        // récupérer image
         image = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInParent<RawImage>();
         StartCoroutine("LanceVideo");
     }
@@ -45,17 +46,17 @@ public class interviews : MonoBehaviour
 
     public void FermerFenêtre()
     {
-        rawImageGameObject.active = false;
-        retourAccueilBoutton.active = true;
-        listVideos.active = true;
+        rawImageGameObject.SetActive(false);
+        retourAccueilBoutton.SetActive(true);
+        listVideos.SetActive(true);
     }
 
     IEnumerator LanceVideo()
     {
         rawImageGameObject.GetComponent<RawImage>().texture = image.texture;
-        rawImageGameObject.active = true;
-        retourAccueilBoutton.active = false;
-        listVideos.active = false;
+        rawImageGameObject.SetActive(true);
+        retourAccueilBoutton.SetActive(false);
+        listVideos.SetActive(false);
         // videoPlayer.Prepare();
         WaitForSeconds attente = new WaitForSeconds(1);
         /*while(videoPlayer.isPrepared)
