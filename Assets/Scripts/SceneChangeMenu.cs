@@ -12,7 +12,7 @@ public class SceneChangeMenu : MonoBehaviour
     void Update(){}
 
     public void loadFirstCameraScene(){
-          loadScene("PAScene");
+          loadScene("FirstCameraScene");
     }
 
     public void loadSecondCameraScene(){

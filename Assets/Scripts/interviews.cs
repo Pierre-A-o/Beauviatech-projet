@@ -41,7 +41,7 @@ public class interviews : MonoBehaviour
     public void RetourAccueil()
     {
         //TODO Effectuer un changement dynamique à la place
-        SceneManager.LoadScene("PAScene");
+        SceneManager.LoadScene("FirstCameraScene");
     }
 
     public void FermerFenêtre()

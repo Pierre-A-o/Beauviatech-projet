@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PanelManager : MonoBehaviour
 {
@@ -20,11 +21,19 @@ public class PanelManager : MonoBehaviour
         
     }
 
-    public void Retour()
+    public void DisparitionP()
     {
-        
         StartCoroutine(DisparitionPanel());
-        
+    }
+
+    public void Filmo()
+    {
+        SceneManager.LoadScene("Filmographie");
+    }
+
+    public void Interview()
+    {
+        SceneManager.LoadScene("InterviewScene");
     }
 
 
