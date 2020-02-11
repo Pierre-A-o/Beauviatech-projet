@@ -13,6 +13,8 @@ public class interviews : MonoBehaviour
     public GameObject retourAccueilBoutton;
     public GameObject listVideos;
 
+    public List<string> test;
+
     public int id = 0;
     private RawImage image;
 
