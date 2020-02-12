@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class FilmoController : MonoBehaviour
 {
@@ -110,5 +111,10 @@ public class FilmoController : MonoBehaviour
         listeDeFilms.GetComponent<CanvasGroup>().alpha = 1;
         filmographie.color = myblue;
         presentation.color = Color.white;
+    }    
+
+    public void GoToPrincipal()
+    {
+        SceneManager.LoadScene("FirstCameraScene");
     }
 }
