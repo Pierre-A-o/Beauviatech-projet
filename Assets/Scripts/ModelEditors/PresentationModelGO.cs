@@ -6,14 +6,18 @@ using UnityEngine.UI;
 
 public class PresentationModelGO : MonoBehaviour
 {
-    
+   
+    [HideInInspector]
     public Image image1;
-  
+    [HideInInspector]
     public Image image2;
     [HideInInspector]
     public TextMeshProUGUI text1;
     [HideInInspector]
     public TextMeshProUGUI text2;
+
+    public Sprite spriteImage1;
+    public Sprite spriteImage2;
 
     public Image Image1 { get => image1; set => image1 = value; }
     public Image Image2 { get => image2; set => image2 = value; }
