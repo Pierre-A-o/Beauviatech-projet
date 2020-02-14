@@ -14,17 +14,18 @@ public class FilmoController : MonoBehaviour
     private Extrait_Film film;
 
     public Color myblue;
-    public GameObject listeDeFilms;
-    public GameObject bouton_film;
+
     public GameObject description_panel;
     public GameObject extrait_panel;
     public GameObject pres_panel;
-    public TextMeshProUGUI details;
-    public TextMeshProUGUI titre;
     public TextMeshProUGUI presentation;
     public TextMeshProUGUI filmographie;
+    public GameObject prefabFilm;
+    public GameObject prefabBoutonFilm;
     public GameObject listeExtraitFilms;
-    
+    public GameObject listeDeFilms;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,7 +68,7 @@ public class FilmoController : MonoBehaviour
         });
         foreach (Extrait_Film extrait in extraits)
         {
-            instance = Instantiate(bouton_film, listeExtraitFilms.transform);
+            instance = Instantiate(prefabBoutonFilm, listeExtraitFilms.transform);
             var sprite = Resources.Load<Sprite>("Sprites/"+extrait.Nom_miniature);
             instance.GetComponent<Button>().image.sprite = sprite;
             instance.GetComponent<Button>().onClick.AddListener(delegate {AfficherFilm(extrait.Nom_film);});
@@ -80,6 +81,11 @@ public class FilmoController : MonoBehaviour
         
     }
 
+    public void InstancierNouveauFilm()
+    {
+   
+    }
+
     void AfficherFilm(string s)
     {
         film = extraits.Find(item => item.Nom_film.Equals(s));
@@ -89,8 +95,6 @@ public class FilmoController : MonoBehaviour
         }
         description_panel.GetComponent<CanvasGroup>().alpha = 0;
         extrait_panel.GetComponent<CanvasGroup>().alpha = 1;
-        titre.text = film.Nom_film;
-        details.text = film.Description;
     }
 
     public void GoToPrésentation()
