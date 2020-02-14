@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,17 +13,17 @@ public class PresentationScriptEditor : Editor
 
         EditorGUILayout.HelpBox("Glissez les images de Assets/Sprites ici.", MessageType.Info);
 
-        EditorGUILayout.LabelField("Texte supérieur gauche", "");
-        myTarget.text1.text = EditorGUILayout.TextArea(myTarget.text1.text);
-        EditorGUILayout.LabelField("Texte inférieur droite", "");
-        myTarget.text2.text = EditorGUILayout.TextArea(myTarget.text2.text);
+        EditorGUILayout.LabelField("Texte supérieur gauche", new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
+        myTarget.text1.text = EditorGUILayout.TextArea(myTarget.text1.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
+        EditorGUILayout.LabelField("Texte inférieur droite", new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
+        myTarget.text2.text = EditorGUILayout.TextArea(myTarget.text2.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
 
         EditorGUILayout.HelpBox("Rentrez les textes que vous désirez ci-dessus.", MessageType.Info);
 
-        EditorGUILayout.LabelField("Image supérieure droite", "");
+        EditorGUILayout.LabelField("Image supérieure droite", new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
 
         // image 1
-        if (GUILayout.Button("Charger image 1"))
+        if (GUILayout.Button("Charger image 1", new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
         {
             string file = EditorUtility.OpenFilePanel("Image 1", Application.dataPath + "/Resources/Sprites", "jpg,png,bmp,jpeg");
 
@@ -66,7 +64,7 @@ public class PresentationScriptEditor : Editor
 
         EditorGUILayout.LabelField("Image inférieure gauche", "");
         // image 2
-        if (GUILayout.Button("Charger image 2"))
+        if (GUILayout.Button("Charger image 2", new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
         {
 
             string file = EditorUtility.OpenFilePanel("Image 2", Application.dataPath+ "/Resources/Sprites", "jpg,png,bmp,jpeg");

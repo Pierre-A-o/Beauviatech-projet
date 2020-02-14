@@ -24,6 +24,9 @@ public class FilmographieModelGO : MonoBehaviour
     public GameObject prefabBoutonFilm;
     public GameObject listeDeFilms;
     public GameObject panelExtraitFilm;
+    public GameObject panelDescription;
+    public RenderTexture renderVideo;
+
 
 
     public TextMeshProUGUI Description { get => description; set => description = value; }
@@ -35,6 +38,10 @@ public class FilmographieModelGO : MonoBehaviour
     public GameObject ListeDeFilms { get => listeDeFilms; set => listeDeFilms = value; }
     public GameObject PanelExtraitFilm { get => panelExtraitFilm; set => panelExtraitFilm = value; }
 
+    /// <summary>
+    /// Instancie un nouveau film lorsque l'utilisateur appuie sur le bouton "Ajouter un film". 
+    /// Ceci génère deux Prefabs.
+    /// </summary>
     public void InstancieNouveauFilm()
     {
         if (elements.Count == 0)
@@ -58,10 +65,17 @@ public class FilmographieModelGO : MonoBehaviour
 
         instanceFilm.name = i + instanceFilm.name;
         instanceBouton.name = i + instanceBouton.name;
+        UnityEditor.Events.UnityEventTools.AddPersistentListener(instanceBouton.GetComponent<Button>().onClick, () => AfficherFilm(i));
+        
 
-        elements.Add(new Film(i, instanceFilm.transform.Find("FilmTitre").GetComponent<TextMeshProUGUI>(),instanceBouton.GetComponent<Image>(), instanceFilm.GetComponentInChildren<RawImage>(),instanceFilm.transform.Find("DetailsTexte").GetComponent<TextMeshProUGUI>()));
+        elements.Add(new Film(i, instanceFilm.transform.Find("FilmTitre").GetComponent<TextMeshProUGUI>(),instanceBouton.GetComponent<Image>(), instanceFilm.GetComponentInChildren<RawImage>(), instanceFilm.transform.Find("DetailsTexte").GetComponent<TextMeshProUGUI>()));
     }
 
+    /// <summary>
+    /// Supprime le film de la liste éléments à l'index donné. 
+    /// Supprime aussi les deux Prefabs générés lors de sa création.
+    /// </summary>
+    /// <param name="index">Index du film à supprimer.</param>
     public void RemoveIndex(int index)
     {
         Debug.Log(index + "AfficheFilm(Clone)");
@@ -73,15 +87,45 @@ public class FilmographieModelGO : MonoBehaviour
         elements.RemoveAt(index);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="index"></param>
+    public void AfficherFilm(int index)
+    {
+        Film film = elements.ElementAt(index);
+        Debug.Log(film.Id);
+        foreach(Film f in elements)
+        {
+            if (f.Equals(film))
+            {
+                panelExtraitFilm.transform.Find(f.id + "AfficheFilm(Clone)").GetComponent<CanvasGroup>().alpha = 1;
+            }
+            else
+            {
+                panelExtraitFilm.transform.Find(f.id + "AfficheFilm(Clone)").GetComponent<CanvasGroup>().alpha = 0;
+            }
+        }
+
+        panelDescription.GetComponent<CanvasGroup>().alpha = 0;
+        panelExtraitFilm.GetComponent<CanvasGroup>().alpha = 1;
+    }
+
+
 }
 
 [System.Serializable]
 public class Film
 {
+    [HideInInspector]
     public TextMeshProUGUI titre;
+    [HideInInspector]
     public Image image;
+    public Sprite spriteImage;
     public RawImage video;
+    [HideInInspector]
     public TextMeshProUGUI description;
+    [HideInInspector]
     public int id;
 
     public Film(int id, TextMeshProUGUI titre, Image image, RawImage video, TextMeshProUGUI description)
