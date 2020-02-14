@@ -127,39 +127,40 @@ public class FilmographieEditor : Editor
                 {
                     myTarget.elements[i].image.sprite = myTarget.elements[i].spriteImage;
                 }
-
-                EditorGUILayout.LabelField("Détails du film", "");
-                myTarget.elements[i].description.text = EditorGUILayout.TextArea(myTarget.elements[i].description.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
-                if (GUILayout.Button("Retirer Film n°" + (i + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
-                {
-                    myTarget.RemoveIndex(i);
-                }
-                DrawUILine(Color.black);
             }
 
-            EditorGUILayout.Space();
-            EditorGUILayout.Space();
-            EditorGUILayout.Space();
-            EditorGUILayout.HelpBox("Modifiez le message affiché sur la description de la page filmographie.", MessageType.Info);
-            EditorGUILayout.LabelField("Description", "");
-            myTarget.description.text = EditorGUILayout.TextArea(myTarget.description.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
+            EditorGUILayout.LabelField("Détails du film", "");
+            myTarget.elements[i].description.text = EditorGUILayout.TextArea(myTarget.elements[i].description.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
 
-            if (GUI.changed)
+            if (GUILayout.Button("Retirer Film n°" + (i + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
             {
-                EditorUtility.SetDirty(myTarget.description);
-                Undo.RecordObject(myTarget, "Saving text");
+                myTarget.RemoveIndex(i);
             }
-
+            DrawUILine(Color.black);
         }
 
-        void DrawUILine(Color color, int thickness = 2, int padding = 10)
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        EditorGUILayout.HelpBox("Modifiez le message affiché sur la description de la page filmographie.", MessageType.Info);
+        EditorGUILayout.LabelField("Description", "");
+        myTarget.description.text = EditorGUILayout.TextArea(myTarget.description.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
+
+        if (GUI.changed)
         {
-            Rect r = EditorGUILayout.GetControlRect(GUILayout.Height(padding + thickness));
-            r.height = thickness;
-            r.y += padding / 2;
-            r.x -= 2;
-            r.width += 6;
-            EditorGUI.DrawRect(r, color);
+            EditorUtility.SetDirty(myTarget.description);
+            Undo.RecordObject(myTarget, "Saving text");
         }
+
+    }
+
+    void DrawUILine(Color color, int thickness = 2, int padding = 10)
+    {
+        Rect r = EditorGUILayout.GetControlRect(GUILayout.Height(padding + thickness));
+        r.height = thickness;
+        r.y += padding / 2;
+        r.x -= 2;
+        r.width += 6;
+        EditorGUI.DrawRect(r, color);
     }
 }

@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Assets"
+    "\\Assets",
+    "\\Assets\\Scripts"
   ],
-  "SelectedNode": "\\Assets\\Materials.meta",
+  "SelectedNode": "\\Assets\\Scripts\\ClickZoneCliquable.cs",
   "PreviewInSolutionExplorer": false
 }
