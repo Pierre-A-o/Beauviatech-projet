@@ -85,13 +85,14 @@ public class TabsScript : MonoBehaviour
     {
         currentContent = contents.Find(item => item.Titre.Equals(s));
 
-        displayedTitle.GetComponent<TextMeshProUGUI>().text = currentContent.Titre;
+        displayedTitle.GetComponentInChildren<TextMeshProUGUI>().text = currentContent.Titre;
+        
         // TODO: Add image in the middle of the text
         /*
         var sprite = Resources.Load<Sprite>("Sprites/" + currentContent.ContenuImage);
         displayedContent.GetComponent<>().image.sprite = sprite; 
         */
-        displayedContent.GetComponent<TextMeshProUGUI>().text = currentContent.ContenuText1 + "\n" + currentContent.ContenuText2;
+        displayedContent.GetComponentInChildren<TextMeshProUGUI>().text = currentContent.ContenuText1 + "\n" + currentContent.ContenuText2;
         //scrollBar.GetComponent<Scrollbar>().value = 1;
     }
 
