@@ -33,6 +33,11 @@ public class FilmographieModelGO : MonoBehaviour
     public GameObject panelPresentation;
 
 
+    public VideoPlayer videoPlayer;
+
+
+
+
     public TextMeshProUGUI Description { get => description; set => description = value; }
   
     public List<Film> Elements { get => elements; set => elements = value; }
@@ -70,10 +75,24 @@ public class FilmographieModelGO : MonoBehaviour
         instanceFilm.name = i + instanceFilm.name;
         instanceBouton.name = i + instanceBouton.name;
         UnityEditor.Events.UnityEventTools.AddPersistentListener(instanceBouton.GetComponent<Button>().onClick, () => AfficherFilm(i));
-        
+        UnityEditor.Events.UnityEventTools.AddPersistentListener(instanceFilm.GetComponentInChildren<Button>().onClick, () => ControleVideo()) ;
 
         elements.Add(new Film(i, instanceFilm.transform.Find("FilmTitre").GetComponent<TextMeshProUGUI>(),instanceBouton.GetComponent<Image>(), instanceFilm.GetComponentInChildren<RawImage>(), instanceFilm.transform.Find("DetailsTexte").GetComponent<TextMeshProUGUI>()));
     }
+
+    public void ControleVideo()
+    {
+        if (videoPlayer.isPlaying)
+        {
+            videoPlayer.Pause();
+        }
+        else
+        {
+            videoPlayer.Play();
+        }
+    }
+
+ 
 
     /// <summary>
     /// Supprime le film de la liste éléments à l'index donné. 
@@ -110,7 +129,7 @@ public class FilmographieModelGO : MonoBehaviour
                 panelExtraitFilm.transform.Find(f.id + "AfficheFilm(Clone)").GetComponent<CanvasGroup>().alpha = 0;
             }
         }
-
+        videoPlayer.clip = film.videoClip;
         panelDescription.GetComponent<CanvasGroup>().alpha = 0;
         panelExtraitFilm.GetComponent<CanvasGroup>().alpha = 1;
     }
@@ -131,6 +150,9 @@ public class Film
     public TextMeshProUGUI description;
     [HideInInspector]
     public int id;
+
+    public VideoClip videoClip;
+
 
     public Film(int id, TextMeshProUGUI titre, Image image, RawImage video, TextMeshProUGUI description)
     {
