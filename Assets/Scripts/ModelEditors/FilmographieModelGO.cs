@@ -4,35 +4,42 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.Video;
+using UnityEngine.Events;
+using System;
 
 public class FilmographieModelGO : MonoBehaviour
 {
     [HideInInspector]
     public TextMeshProUGUI description;
-   
+    [HideInInspector]
     public List<Film> elements;
 
     private int i;
     private int max;
 
     // Outils pour génération liste films
+    [HideInInspector]
     private GameObject instanceFilm;
+    [HideInInspector]
     private GameObject instanceBouton;
     [HideInInspector]
-    public GameObject listeExtraitFilms;
     public GameObject prefabFilm;
+    [HideInInspector]
     public GameObject prefabBoutonFilm;
+    [HideInInspector]
+    public RenderTexture renderVideo;
+    [HideInInspector]
+    public GameObject panelPresentation;
+    [HideInInspector]
+    public GameObject listeExtraitFilms;
+    [HideInInspector]
+    public GameObject panelDescription;
     [HideInInspector]
     public GameObject listeDeFilms;
     [HideInInspector]
     public GameObject panelExtraitFilm;
-    [HideInInspector]
-    public GameObject panelDescription;
-    public RenderTexture renderVideo;
-    [HideInInspector]
-    public GameObject panelPresentation;
 
-
+    [HideInInspector]
     public VideoPlayer videoPlayer;
 
 
@@ -74,8 +81,14 @@ public class FilmographieModelGO : MonoBehaviour
 
         instanceFilm.name = i + instanceFilm.name;
         instanceBouton.name = i + instanceBouton.name;
-        UnityEditor.Events.UnityEventTools.AddPersistentListener(instanceBouton.GetComponent<Button>().onClick, () => AfficherFilm(i));
-        UnityEditor.Events.UnityEventTools.AddPersistentListener(instanceFilm.GetComponentInChildren<Button>().onClick, () => ControleVideo()) ;
+
+        //aled
+        UnityAction<int> methodDelegate1 = Delegate.CreateDelegate(typeof(UnityAction<int>), this, "AfficherFilm") as UnityAction<int>;
+        UnityAction methodDelegate2 = Delegate.CreateDelegate(typeof(UnityAction), this, "ControleVideo") as UnityAction;
+
+        UnityEditor.Events.UnityEventTools.AddIntPersistentListener(instanceBouton.GetComponentInChildren<Button>().onClick,methodDelegate1,i);
+
+        UnityEditor.Events.UnityEventTools.AddPersistentListener(instanceFilm.GetComponentInChildren<Button>().onClick, methodDelegate2);
 
         elements.Add(new Film(i, instanceFilm.transform.Find("FilmTitre").GetComponent<TextMeshProUGUI>(),instanceBouton.GetComponent<Image>(), instanceFilm.GetComponentInChildren<RawImage>(), instanceFilm.transform.Find("DetailsTexte").GetComponent<TextMeshProUGUI>()));
     }
@@ -97,6 +110,8 @@ public class FilmographieModelGO : MonoBehaviour
     /// <summary>
     /// Supprime le film de la liste éléments à l'index donné. 
     /// Supprime aussi les deux Prefabs générés lors de sa création.
+    /// 
+    /// A REVOIR ATTENTION L'INDEX OHLALA
     /// </summary>
     /// <param name="index">Index du film à supprimer.</param>
     public void RemoveIndex(int index)
@@ -116,7 +131,9 @@ public class FilmographieModelGO : MonoBehaviour
     /// <param name="index"></param>
     public void AfficherFilm(int index)
     {
-        Film film = elements.ElementAt(index);
+        Debug.Log(index);
+        Film film = elements[index];
+        Debug.Log(elements.Count);
         Debug.Log(film.Id);
         foreach(Film f in elements)
         {
@@ -148,7 +165,6 @@ public class Film
     public RawImage video;
     [HideInInspector]
     public TextMeshProUGUI description;
-    [HideInInspector]
     public int id;
 
     public VideoClip videoClip;
