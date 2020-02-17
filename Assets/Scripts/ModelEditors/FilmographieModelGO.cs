@@ -18,15 +18,19 @@ public class FilmographieModelGO : MonoBehaviour
     // Outils pour génération liste films
     private GameObject instanceFilm;
     private GameObject instanceBouton;
-
+    [HideInInspector]
     public GameObject listeExtraitFilms;
     public GameObject prefabFilm;
     public GameObject prefabBoutonFilm;
+    [HideInInspector]
     public GameObject listeDeFilms;
+    [HideInInspector]
     public GameObject panelExtraitFilm;
+    [HideInInspector]
     public GameObject panelDescription;
     public RenderTexture renderVideo;
-
+    [HideInInspector]
+    public GameObject panelPresentation;
 
 
     public TextMeshProUGUI Description { get => description; set => description = value; }

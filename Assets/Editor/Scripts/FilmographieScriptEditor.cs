@@ -152,6 +152,13 @@ public class FilmographieEditor : Editor
             Undo.RecordObject(myTarget, "Saving text");
         }
 
+        if(Selection.activeGameObject != null)
+        {
+            myTarget.panelDescription.GetComponent<CanvasGroup>().alpha = 0;
+            myTarget.panelExtraitFilm.GetComponent<CanvasGroup>().alpha = 1;
+            myTarget.listeDeFilms.GetComponent<CanvasGroup>().alpha = 1;
+            myTarget.panelPresentation.GetComponent<CanvasGroup>().alpha = 0;
+        }
     }
 
     void DrawUILine(Color color, int thickness = 2, int padding = 10)

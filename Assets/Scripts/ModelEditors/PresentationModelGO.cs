@@ -16,6 +16,14 @@ public class PresentationModelGO : MonoBehaviour
 
     public Sprite spriteImage1;
     public Sprite spriteImage2;
+    [HideInInspector]
+    public GameObject panelDescription;
+    [HideInInspector]
+    public GameObject panelExtraitFilm;
+    [HideInInspector]
+    public GameObject listeDeFilms;
+    [HideInInspector]
+    public GameObject panelPresentation;
 
     public Image Image1 { get => image1; set => image1 = value; }
     public Image Image2 { get => image2; set => image2 = value; }
