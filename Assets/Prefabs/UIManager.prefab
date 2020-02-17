@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8406478908126717285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8406478908126717281}
+  - component: {fileID: 8406478908126717286}
+  - component: {fileID: 8406478908126717287}
+  - component: {fileID: 8406478908126717284}
+  - component: {fileID: 8406478908126717280}
+  - component: {fileID: 8406478908126717283}
+  m_Layer: 0
+  m_Name: UIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8406478908126717281
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406478908126717285}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.8324127, y: -11.2, z: 57.990875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8406478908126717286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406478908126717285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb9a8f0c57fbbb4190ac4257bca6625, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InfoPanelAnimator: {fileID: 0}
+  speedTransi: 2
+  InfoPanel: {fileID: 0}
+  PanelSceneModel: {fileID: 0}
+  PanelFilmo: {fileID: 0}
+  PanelInterviews: {fileID: 0}
+  MainCamera: {fileID: 0}
+--- !u!114 &8406478908126717287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406478908126717285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836d36c8bb2429644afff11da9b47f73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8406478908126717284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406478908126717285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5858ea33c6971884496655f08dfe8f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuPanel: {fileID: 0}
+  hiddenPosition: {fileID: 0}
+  revealedPosition: {fileID: 0}
+  isRevealed: 0
+  speed: 2
+  tempMenuPosition: 0
+--- !u!114 &8406478908126717280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406478908126717285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b75ae8ba9e21a464bb6118924fb6e85e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myblue: {r: 0, g: 0.6666667, b: 1, a: 1}
+  listeDeFilms: {fileID: 0}
+  bouton_film: {fileID: 5306600042193428658, guid: 0fa69cdb21da7524ba8425766d995a79,
+    type: 3}
+  description_panel: {fileID: 0}
+  extrait_panel: {fileID: 0}
+  pres_panel: {fileID: 0}
+  details: {fileID: 0}
+  titre: {fileID: 0}
+  presentation: {fileID: 0}
+  filmographie: {fileID: 0}
+  listeExtraitFilms: {fileID: 0}
+--- !u!114 &8406478908126717283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8406478908126717285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d4ebc88cebfbde42a0379ce589f96f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rawImageGameObject: {fileID: 0}
+  videoPlayer: {fileID: 0}
+  audioSource: {fileID: 0}
+  retourAccueilBoutton: {fileID: 0}
+  listVideos: {fileID: 0}
+  test: []
+  id: 0
