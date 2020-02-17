@@ -111,16 +111,14 @@ public class FilmographieEditor : Editor
 
 
                     AssetDatabase.Refresh();
-                    TextureImporter tImporter = AssetImporter.GetAtPath("Assets/Resources/Videos/" + finalFinal) as TextureImporter;
-                    //à changer
-                    tImporter.textureType = TextureImporterType.Sprite;
+                   
 
                     AssetDatabase.ImportAsset("Assets/Resources/Videos/" + finalFinal, ImportAssetOptions.ImportRecursive);
 
 
-                    VideoPlayer video = Resources.Load<VideoPlayer>("Videos/" + final);
+                    VideoClip video = Resources.Load<VideoClip>("Videos/" + final);
                     //à continuer
-                    myTarget.elements[i].video.texture = video.targetTexture;
+                    myTarget.elements[i].videoClip = video;
                 }
 
                 if (myTarget.elements[i].spriteImage != null)
