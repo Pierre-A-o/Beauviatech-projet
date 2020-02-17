@@ -9,37 +9,34 @@ using System;
 
 public class FilmographieModelGO : MonoBehaviour
 {
-    [HideInInspector]
     public TextMeshProUGUI description;
-    [HideInInspector]
     public List<Film> elements;
 
     private int i;
     private int max;
 
     // Outils pour génération liste films
-    [HideInInspector]
     private GameObject instanceFilm;
-    [HideInInspector]
+    
     private GameObject instanceBouton;
-    [HideInInspector]
+
     public GameObject prefabFilm;
-    [HideInInspector]
+    
     public GameObject prefabBoutonFilm;
-    [HideInInspector]
+    
     public RenderTexture renderVideo;
-    [HideInInspector]
+    
     public GameObject panelPresentation;
-    [HideInInspector]
+    
     public GameObject listeExtraitFilms;
-    [HideInInspector]
+    
     public GameObject panelDescription;
-    [HideInInspector]
+    
     public GameObject listeDeFilms;
-    [HideInInspector]
+    
     public GameObject panelExtraitFilm;
 
-    [HideInInspector]
+    
     public VideoPlayer videoPlayer;
 
 
@@ -157,13 +154,13 @@ public class FilmographieModelGO : MonoBehaviour
 [System.Serializable]
 public class Film
 {
-    [HideInInspector]
+    
     public TextMeshProUGUI titre;
-    [HideInInspector]
+    
     public Image image;
     public Sprite spriteImage;
     public RawImage video;
-    [HideInInspector]
+    
     public TextMeshProUGUI description;
     public int id;
 
