@@ -83,7 +83,6 @@ public class PanelManager : MonoBehaviour
         InfoPanelAnimator.SetTrigger("Disparition");
         yield return new WaitForSeconds(1);
         InfoPanel.SetActive(false);
-          
     }
 
 }

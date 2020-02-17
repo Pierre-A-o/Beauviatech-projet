@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 4879659525643679241}
   - component: {fileID: 3527673747131339479}
   - component: {fileID: 2757335349502183643}
+  - component: {fileID: 5525127132841994055}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BoutonExtraitFilmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,3 +118,15 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!225 &5525127132841994055
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5306600042193428658}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

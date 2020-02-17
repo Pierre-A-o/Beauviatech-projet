@@ -33,10 +33,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25.659973, y: -24.050003}
-  m_SizeDelta: {x: 51.32, y: 48.1}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -576.7, y: -28.4}
+  m_SizeDelta: {x: 43.31995, y: 40.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8882710064936402854
 CanvasRenderer:
@@ -134,7 +134,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.0000038147, y: 0.000017345}
-  m_SizeDelta: {x: 51.32, y: 48.1}
+  m_SizeDelta: {x: 43.32, y: 40.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8882710065088597853
 CanvasRenderer:
@@ -164,7 +164,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 2800000, guid: aa5efa82cc8a10e40a30e4e7ec759919, type: 3}
+  m_Texture: {fileID: 2800000, guid: c3e591306b423dc458851071e4110507, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
