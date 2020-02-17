@@ -25,7 +25,8 @@ public class FilmoController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        description_panel.GetComponent<CanvasGroup>().alpha = 1;
+        pres_panel.GetComponent<CanvasGroup>().alpha = 1;
+        description_panel.GetComponent<CanvasGroup>().alpha = 0;
         extrait_panel.GetComponent<CanvasGroup>().alpha = 0;
         listeDeFilms.GetComponent<CanvasGroup>().alpha = 0;
     }
@@ -49,9 +50,9 @@ public class FilmoController : MonoBehaviour
     public void GoToFilmographie()
     {
         description_panel.GetComponent<CanvasGroup>().alpha = 1;
+        listeDeFilms.GetComponent<CanvasGroup>().alpha = 1;
         extrait_panel.GetComponent<CanvasGroup>().alpha = 0;
         pres_panel.SetActive(false);
-        listeDeFilms.GetComponent<CanvasGroup>().alpha = 1;
         filmographie.color = myblue;
         presentation.color = Color.white;
     }    
