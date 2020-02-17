@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class PanelManager : MonoBehaviour
 {
     public Animator InfoPanelAnimator;
-    public Animation AnimationDisparition;
     public GameObject InfoPanel;
 
     // Start is called before the first frame update
@@ -42,7 +41,6 @@ public class PanelManager : MonoBehaviour
         InfoPanelAnimator.SetTrigger("Disparition");
         yield return new WaitForSeconds(1);
         InfoPanel.SetActive(false);
-          
     }
 }
 
