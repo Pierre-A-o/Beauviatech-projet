@@ -75,7 +75,7 @@ public class FilmographieModelGO : MonoBehaviour
         instanceFilm.name = i + instanceFilm.name;
         instanceBouton.name = i + instanceBouton.name;
         UnityEditor.Events.UnityEventTools.AddPersistentListener(instanceBouton.GetComponent<Button>().onClick, () => AfficherFilm(i));
-        UnityEditor.Events.UnityEventTools.AddPersistentListener(instanceFilm.GetComponentInChildren<Button>().onClick, () => ControleVideo()) ;
+        UnityEditor.Events.UnityEventTools.AddPersistentListener(instanceFilm.GetComponentInChildren<Button>().onClick, () => ControleVideo());
 
         elements.Add(new Film(i, instanceFilm.transform.Find("FilmTitre").GetComponent<TextMeshProUGUI>(),instanceBouton.GetComponent<Image>(), instanceFilm.GetComponentInChildren<RawImage>(), instanceFilm.transform.Find("DetailsTexte").GetComponent<TextMeshProUGUI>()));
     }
