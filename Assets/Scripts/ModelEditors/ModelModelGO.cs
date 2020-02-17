@@ -8,15 +8,15 @@ public class ModelModelGO : MonoBehaviour
 {
     public List<Interaction> interactions;
     public GameObject cameraModel;
-    [HideInInspector]
+    
     public GameObject prefabInteraction;
-    [HideInInspector]
+    
     public GameObject prefabOngletButton;
-    [HideInInspector]
+    
     public GameObject prefabOngletContent;
-    [HideInInspector]
+    
     public GameObject ongletPanel;
-    [HideInInspector]
+    
     public GameObject scrollView;
 
     private int i;
@@ -93,9 +93,9 @@ public class ModelModelGO : MonoBehaviour
 public class Interaction
 {
     public int id;
-    [HideInInspector]
+    
     public float radius;
-    [HideInInspector]
+    
     public Vector3 position;
     public List<Fenetre> onglets;
 

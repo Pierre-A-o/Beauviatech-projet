@@ -62,6 +62,6 @@ public class ModelScriptEditor : Editor
 
     public void SetActiveContent(int indexInteraction, int index)
     {
-        Selection.activeGameObject = myTarget.interactions(ibdex)
+        
     }
 }
