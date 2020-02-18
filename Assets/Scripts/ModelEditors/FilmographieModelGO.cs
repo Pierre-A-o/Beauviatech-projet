@@ -147,8 +147,10 @@ public class FilmographieModelGO : MonoBehaviour
             }
         }
         videoPlayer.clip = film.videoClip;
-        panelDescription.GetComponent<CanvasGroup>().alpha = 0;
-        panelExtraitFilm.GetComponent<CanvasGroup>().alpha = 1;
+        videoPlayer.Play();
+        videoPlayer.Pause();
+        panelDescription.SetActive(false);
+        panelExtraitFilm.SetActive(true);
     }
 
 

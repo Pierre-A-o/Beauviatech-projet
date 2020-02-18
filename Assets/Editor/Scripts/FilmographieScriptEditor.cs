@@ -152,10 +152,10 @@ public class FilmographieEditor : Editor
 
         if(Selection.activeGameObject != null)
         {
-            myTarget.panelDescription.GetComponent<CanvasGroup>().alpha = 0;
-            myTarget.panelExtraitFilm.GetComponent<CanvasGroup>().alpha = 1;
-            myTarget.listeDeFilms.GetComponent<CanvasGroup>().alpha = 1;
-            myTarget.panelPresentation.GetComponent<CanvasGroup>().alpha = 0;
+            myTarget.panelDescription.SetActive(false);
+            myTarget.panelExtraitFilm.SetActive(true);
+            myTarget.listeDeFilms.SetActive(true);
+            myTarget.panelPresentation.SetActive(false);
         }
     }
 

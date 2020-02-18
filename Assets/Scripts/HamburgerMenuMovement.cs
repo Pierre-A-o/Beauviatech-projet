@@ -27,9 +27,9 @@ public class HamburgerMenuMovement : MonoBehaviour
     void Update()
     {
         if (isRevealed){
-            this.hideOrRevealMenu(revealedPosition, hiddenPosition);
+            hideOrRevealMenu(revealedPosition, hiddenPosition);
         }else{
-            this.hideOrRevealMenu(hiddenPosition, revealedPosition);
+            hideOrRevealMenu(hiddenPosition, revealedPosition);
         }
     }
 

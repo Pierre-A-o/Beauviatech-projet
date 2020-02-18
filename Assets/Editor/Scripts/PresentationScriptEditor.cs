@@ -129,10 +129,10 @@ public class PresentationScriptEditor : Editor
 
         if (Selection.activeGameObject != null)
         {
-            myTarget.panelDescription.GetComponent<CanvasGroup>().alpha = 0;
-            myTarget.panelExtraitFilm.GetComponent<CanvasGroup>().alpha = 0;
-            myTarget.listeDeFilms.GetComponent<CanvasGroup>().alpha = 0;
-            myTarget.panelPresentation.GetComponent<CanvasGroup>().alpha = 1;
+            myTarget.panelDescription.SetActive(false);
+            myTarget.panelExtraitFilm.SetActive(false);
+            myTarget.listeDeFilms.SetActive(false);
+            myTarget.panelPresentation.SetActive(true);
 
         }
 

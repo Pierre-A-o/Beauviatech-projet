@@ -33,6 +33,8 @@ public class interviews : MonoBehaviour
 
     public void LanceVideoClick()
     {
+        videoPlayer.Play();
+        videoPlayer.Pause();
         retourAccueilBoutton.SetActive(false);
         listVideos.SetActive(false);
         rawImageGameObject.SetActive(true);
