@@ -650,7 +650,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 78.9
+  m_fontSize: 80.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -984,6 +984,8 @@ MonoBehaviour:
   Active3D: 0
   Boutton3D: {fileID: 1627109967}
   BouttonVR: {fileID: 1210417676}
+  actif: {r: 1, g: 0.34901962, b: 0, a: 1}
+  inactif: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &1091031607
 Transform:
   m_ObjectHideFlags: 0
@@ -1032,10 +1034,10 @@ RectTransform:
   m_Father: {fileID: 1359550835}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.81}
-  m_AnchorMax: {x: 0.6, y: 0.87}
-  m_AnchoredPosition: {x: 164, y: -2.5}
-  m_SizeDelta: {x: -59, y: -55}
+  m_AnchorMin: {x: 0.5497428, y: 0.81}
+  m_AnchorMax: {x: 0.69825727, y: 0.87}
+  m_AnchoredPosition: {x: 0.5, y: -2.5}
+  m_SizeDelta: {x: -166, y: -55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1210417676
 MonoBehaviour:
@@ -1242,10 +1244,10 @@ RectTransform:
   m_Father: {fileID: 1359550835}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.4, y: 0.81}
-  m_AnchorMax: {x: 0.5, y: 0.87}
-  m_AnchoredPosition: {x: -114, y: -2.5}
-  m_SizeDelta: {x: -60, y: -55}
+  m_AnchorMin: {x: 0.32500002, y: 0.79800004}
+  m_AnchorMax: {x: 0.47122833, y: 0.87}
+  m_AnchoredPosition: {x: 0.5, y: 6}
+  m_SizeDelta: {x: -163, y: -72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1627109967
 MonoBehaviour:
@@ -1466,6 +1468,22 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1181536156934520705, guid: ae48f66d39f40a94daa021cb1d133199,
+        type: 3}
+      propertyPath: NomScene
+      value: SceneTestRegroupement
+      objectReference: {fileID: 0}
+    - target: {fileID: 1181536156934520705, guid: ae48f66d39f40a94daa021cb1d133199,
+        type: 3}
+      propertyPath: SceneACharger
+      value: 
+      objectReference: {fileID: 102900000, guid: 6b69febdfbbd6af459b418091beac891,
+        type: 3}
+    - target: {fileID: 1181536156934520705, guid: ae48f66d39f40a94daa021cb1d133199,
+        type: 3}
+      propertyPath: bool3D
+      value: 
+      objectReference: {fileID: 1091031606}
     - target: {fileID: 6016400983000385343, guid: ae48f66d39f40a94daa021cb1d133199,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1499,17 +1517,6 @@ PrefabInstance:
     - target: {fileID: 6016400983000385343, guid: ae48f66d39f40a94daa021cb1d133199,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 102900000, guid: 6b69febdfbbd6af459b418091beac891,
-        type: 3}
-    - target: {fileID: 1181536156934520705, guid: ae48f66d39f40a94daa021cb1d133199,
-        type: 3}
-      propertyPath: NomScene
-      value: SceneTestRegroupement
-      objectReference: {fileID: 0}
-    - target: {fileID: 1181536156934520705, guid: ae48f66d39f40a94daa021cb1d133199,
-        type: 3}
-      propertyPath: SceneACharger
       value: 
       objectReference: {fileID: 102900000, guid: 6b69febdfbbd6af459b418091beac891,
         type: 3}
