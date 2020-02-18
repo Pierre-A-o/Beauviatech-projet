@@ -7,10 +7,21 @@ public class AfficheSceneAppareil : MonoBehaviour
 {
 
     public Object SceneACharger;
-   
+
+    public GestionMode bool3D;
+
     public void afficherScene(Object SceneACharger)
     {
-        SceneManager.LoadScene(SceneACharger.name);
+        if (bool3D.Active3D)
+        {
+            SceneManager.LoadScene(SceneACharger.name);
+        }
+        else
+        {
+            //Load VR
+        }
+
+        
     }
 
 }
