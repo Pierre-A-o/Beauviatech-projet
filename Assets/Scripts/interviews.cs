@@ -9,7 +9,6 @@ public class interviews : MonoBehaviour
 {
     public GameObject rawImageGameObject;
     public VideoPlayer videoPlayer;
-    public AudioSource audioSource;
     public GameObject retourAccueilBoutton;
     public GameObject listVideos;
 
@@ -34,8 +33,9 @@ public class interviews : MonoBehaviour
 
     public void LanceVideoClick()
     {
-        image = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInParent<RawImage>();
-        StartCoroutine("LanceVideo");
+        retourAccueilBoutton.SetActive(false);
+        listVideos.SetActive(false);
+        rawImageGameObject.SetActive(true);
     }
 
     public void RetourAccueil()
@@ -51,22 +51,16 @@ public class interviews : MonoBehaviour
         listVideos.SetActive(true);
     }
 
-    IEnumerator LanceVideo()
+    public void PlayPause()
     {
-        rawImageGameObject.GetComponent<RawImage>().texture = image.texture;
-        rawImageGameObject.SetActive(true);
-        retourAccueilBoutton.SetActive(false);
-        listVideos.SetActive(false);
-        // videoPlayer.Prepare();
-        WaitForSeconds attente = new WaitForSeconds(1);
-        /*while(videoPlayer.isPrepared)
+        if (videoPlayer.isPlaying)
         {
-            yield return attente;
-            break; 
-        }*/
-        /*videoPlayer.Play();
-        audioSource.Play();*/
-        yield return attente;
-        StopCoroutine("LanceVideo");
+            videoPlayer.Pause();
+        } else
+        {
+            videoPlayer.Play();
+        }
     }
+
+   
 }
