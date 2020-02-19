@@ -11,8 +11,8 @@ using UnityEngine.Video;
 [CustomEditor(typeof(TablModelGO))]
 public class TabScriptEditor : Editor
 {
-    private TablModelGO myTarget;
-    private GameObject theModel;
+    static TablModelGO myTarget;
+    static GameObject theModel;
 
     private int i;
     private int max;
@@ -23,22 +23,23 @@ public class TabScriptEditor : Editor
         theModel = GameObject.Find("ModelEditor").gameObject;
     }
 
+
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        if(myTarget.contenu == null)
+        if(myTarget.Contenu == null)
         {
             i = 0;
-            myTarget.contenu = new List<Contenu>();
+            myTarget.Contenu = new List<Contenu>();
         }
-        else if (myTarget.contenu.Count == 0)
+        else if (myTarget.Contenu.Count == 0)
         {
             i = 0;
         }
         else
         {
-            foreach (Contenu c in myTarget.contenu)
+            foreach (Contenu c in myTarget.Contenu)
             {
                 if (c.Id > max)
                 {
@@ -49,15 +50,20 @@ public class TabScriptEditor : Editor
         }
 
         EditorGUILayout.LabelField("Nom de l'onglet", "");
-        myTarget.nom.text = EditorGUILayout.TextField(myTarget.nom.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
+        myTarget.Nom.text = EditorGUILayout.TextField(myTarget.Nom.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
         DrawUILine(Color.black);
         if (GUILayout.Button("Ajouter Titre", new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
         {
             GameObject myTitle = new GameObject("Titre" + (i + 1));
             myTitle.transform.parent = myTarget.gameObject.transform;
+            myTitle.transform.localScale = new Vector3(1f,1f,1f);
+            myTitle.transform.rotation = myTarget.gameObject.transform.rotation;
+            myTitle.transform.localPosition = new Vector3(myTitle.transform.position.x, myTitle.transform.position.y, 0f);
             myTitle.AddComponent<TextMeshProUGUI>();
+            myParagraphe.GetComponent<TextMeshProUGUI>().enableAutoSizing = true;
+            myParagraphe.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.Center;
             Contenu contenu = new Contenu(i, myTitle);
-            myTarget.contenu.Add(contenu);
+            myTarget.Contenu.Add(contenu);
             theModel.GetComponent<ModelModelGO>().AjouteContenu(myTarget.IndexInteraction,myTarget.IndexOnglet,myTitle);
         }
 
@@ -65,9 +71,14 @@ public class TabScriptEditor : Editor
         {
             GameObject myParagraphe = new GameObject("Paragraphe" + (i + 1));
             myParagraphe.transform.parent = myTarget.gameObject.transform;
+            myParagraphe.transform.localScale = new Vector3(1f, 1f, 1f);
+            myParagraphe.transform.rotation = myTarget.gameObject.transform.rotation;
+            myParagraphe.transform.localPosition = new Vector3(myParagraphe.transform.position.x, myParagraphe.transform.position.y, 0f);
             myParagraphe.AddComponent<TextMeshProUGUI>();
+            myParagraphe.GetComponent<TextMeshProUGUI>().enableAutoSizing = true;
+            myParagraphe.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.Justified;
             Contenu contenu = new Contenu(i, myParagraphe);
-            myTarget.contenu.Add(contenu);
+            myTarget.Contenu.Add(contenu);
             theModel.GetComponent<ModelModelGO>().AjouteContenu(myTarget.IndexInteraction, myTarget.IndexOnglet, myParagraphe);
         }
 
@@ -75,9 +86,12 @@ public class TabScriptEditor : Editor
         {
             GameObject myImage = new GameObject("Image" + (i + 1));
             myImage.transform.parent = myTarget.gameObject.transform;
+            myImage.transform.localScale = new Vector3(1f, 1f, 1f);
+            myImage.transform.rotation = myTarget.gameObject.transform.rotation;
+            myImage.transform.localPosition = new Vector3(myImage.transform.position.x, myImage.transform.position.y, 0f);
             myImage.AddComponent<Image>();
             Contenu contenu = new Contenu(i, myImage);
-            myTarget.contenu.Add(contenu);
+            myTarget.Contenu.Add(contenu);
             theModel.GetComponent<ModelModelGO>().AjouteContenu(myTarget.IndexInteraction, myTarget.IndexOnglet, myImage);
         }
 
@@ -85,11 +99,14 @@ public class TabScriptEditor : Editor
         {
             GameObject myVideo = new GameObject("Video" + (i + 1));
             myVideo.transform.parent = myTarget.gameObject.transform;
+            myVideo.transform.localScale = new Vector3(1f, 1f, 1f);
+            myVideo.transform.rotation = myTarget.gameObject.transform.rotation;
+            myVideo.transform.localPosition = new Vector3(myVideo.transform.position.x, myVideo.transform.position.y, 0f);
             myVideo.AddComponent<RawImage>();
             myVideo.AddComponent<VideoPlayer>();
             myVideo.GetComponent<VideoPlayer>().playOnAwake = false;
 
-            string filename = "renderTexture" + (myTarget.contenu.Count + 1);
+            string filename = "renderTexture" + (myTarget.Contenu.Count + 1);
 
             RenderTexture rt = new RenderTexture(256, 256, 16, RenderTextureFormat.ARGB32);
             rt.Create();
@@ -109,23 +126,23 @@ public class TabScriptEditor : Editor
             myVideo.GetComponent<VideoPlayer>().targetTexture = Resources.Load<RenderTexture>("Videos/" + filename);
             myVideo.GetComponent<RawImage>().texture = Resources.Load<Texture>("Videos/" + filename);
             Contenu contenu = new Contenu(i, myVideo);
-            myTarget.contenu.Add(contenu);
+            myTarget.Contenu.Add(contenu);
             theModel.GetComponent<ModelModelGO>().AjouteContenu(myTarget.IndexInteraction, myTarget.IndexOnglet, myVideo);
         }
 
         DrawUILine(Color.black);
 
-        foreach (Contenu go in myTarget.contenu.ToList())
+        foreach (Contenu go in myTarget.Contenu.ToList())
         {
             if (go.Objet.GetComponent<TextMeshProUGUI>() != null)
             {
                 if (go.Objet.name.StartsWith("P"))
                 {
-                    EditorGUILayout.LabelField("Paragraphe " + (myTarget.contenu.IndexOf(go) + 1), "");
+                    EditorGUILayout.LabelField("Paragraphe " + (myTarget.Contenu.IndexOf(go) + 1), "");
 
                     go.Objet.GetComponent<TextMeshProUGUI>().text = EditorGUILayout.TextArea(go.Objet.GetComponent<TextMeshProUGUI>().text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
 
-                    if (GUILayout.Button("Supprimer le paragraphe " + (myTarget.contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+                    if (GUILayout.Button("Supprimer le paragraphe " + (myTarget.Contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
                     {
                         myTarget.RetireComposant(go.Id, "Paragraphe");
                     }
@@ -136,11 +153,11 @@ public class TabScriptEditor : Editor
 
                 else
                 {
-                    EditorGUILayout.LabelField("Titre " + (myTarget.contenu.IndexOf(go) + 1), "");
+                    EditorGUILayout.LabelField("Titre " + (myTarget.Contenu.IndexOf(go) + 1), "");
 
                     go.Objet.GetComponent<TextMeshProUGUI>().text = EditorGUILayout.TextField(go.Objet.GetComponent<TextMeshProUGUI>().text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
 
-                    if (GUILayout.Button("Supprimer le titre " + (myTarget.contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+                    if (GUILayout.Button("Supprimer le titre " + (myTarget.Contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
                     {
                         myTarget.RetireComposant(go.Id, "Titre");
                     }
@@ -153,10 +170,10 @@ public class TabScriptEditor : Editor
 
             else if (go.Objet.GetComponent<Image>() != null)
             {
-                EditorGUILayout.LabelField("Image " + (myTarget.contenu.IndexOf(go) + 1), "");
-                if (GUILayout.Button("Charger image" + (myTarget.contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+                EditorGUILayout.LabelField("Image " + (myTarget.Contenu.IndexOf(go) + 1), "");
+                if (GUILayout.Button("Charger image" + (myTarget.Contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
                 {
-                    string file = EditorUtility.OpenFilePanel("Image film n°" + (myTarget.contenu.IndexOf(go) + 1), Application.dataPath + "/Resources/Sprites", "jpg,png,bmp,jpeg");
+                    string file = EditorUtility.OpenFilePanel("Image film n°" + (myTarget.Contenu.IndexOf(go) + 1), Application.dataPath + "/Resources/Sprites", "jpg,png,bmp,jpeg");
 
                     if (file != null)
                     {
@@ -194,7 +211,7 @@ public class TabScriptEditor : Editor
 
                     
                 }
-                if (GUILayout.Button("Supprimer l'image " + (myTarget.contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+                if (GUILayout.Button("Supprimer l'image " + (myTarget.Contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
                 {
                     myTarget.RetireComposant(go.Id, "Image");
                 }
@@ -205,9 +222,9 @@ public class TabScriptEditor : Editor
 
             else if (go.Objet.GetComponent<VideoPlayer>() != null)
             {
-                if (GUILayout.Button("Charger film " + (myTarget.contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+                if (GUILayout.Button("Charger film " + (myTarget.Contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
                 {
-                    string file = EditorUtility.OpenFilePanel("Film " + (myTarget.contenu.IndexOf(go) + 1), Application.dataPath + "/Resources/Videos", "mp4");
+                    string file = EditorUtility.OpenFilePanel("Film " + (myTarget.Contenu.IndexOf(go) + 1), Application.dataPath + "/Resources/Videos", "mp4");
 
                     if (file != null)
                     {
@@ -241,7 +258,7 @@ public class TabScriptEditor : Editor
                         go.Objet.GetComponent<VideoPlayer>().clip = video;
                     }
                 }
-                if (GUILayout.Button("Supprimer la vidéo " + (myTarget.contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+                if (GUILayout.Button("Supprimer la vidéo " + (myTarget.Contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
                 {
                     myTarget.RetireComposant(go.Id, "Video");
                 }
@@ -259,7 +276,7 @@ public class TabScriptEditor : Editor
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(myTarget.nom);
+            EditorUtility.SetDirty(myTarget.Nom);
             Undo.RecordObject(myTarget, "Saving text");
         }
     }

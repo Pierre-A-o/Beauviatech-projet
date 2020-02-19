@@ -16,20 +16,24 @@ public class TablModelGO : MonoBehaviour
 
     public void RetireComposant(int index, string element)
     {
-        Contenu objet = contenu.Single(co => co.Id == index);
-        contenu.Remove(objet);
+        Contenu objet = Contenu.Single(co => co.Id == index);
+        Contenu.Remove(objet);
         GameObject toDestroyComposant = gameObject.transform.Find(element + (index + 1)).gameObject;
         DestroyImmediate(toDestroyComposant);
     }
 
     public int IndexInteraction { get => indexInteraction; set => indexInteraction = value; }
     public int IndexOnglet { get => indexOnglet; set => indexOnglet = value; }
+    public TextMeshProUGUI Nom { get => nom; set => nom = value; }
+    public List<Contenu> Contenu { get => contenu; set => contenu = value; }
 }
 
 [System.Serializable]
 public class Contenu
 {
+    [SerializeField]
     private int id;
+    [SerializeField]
     private GameObject objet;
 
     public Contenu(int id, GameObject objet)

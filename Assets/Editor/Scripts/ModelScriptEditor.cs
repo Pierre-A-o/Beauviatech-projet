@@ -24,7 +24,7 @@ public class ModelScriptEditor : Editor
     static void OnSceneGUI( SceneView sceneView)
     {
 
-        if (EditorSceneManager.GetActiveScene().name.Equals("FirstCameraScene"))
+        if (EditorSceneManager.GetActiveScene().name.Equals("SceneTestRegroupement"))
         {
             if (Event.current.button == 1)
             {

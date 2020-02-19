@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class ModelModelGO : MonoBehaviour
 {
@@ -11,17 +12,17 @@ public class ModelModelGO : MonoBehaviour
     public GameObject cameraModel;
     [HideInInspector]
     public GameObject prefabInteraction;
-    [HideInInspector]
+  
     public GameObject prefabOngletButton;
-    [HideInInspector]
+    
     public GameObject prefabOngletContent;
-    [HideInInspector]
+    
     public GameObject prefabContentInteraction;
-    [HideInInspector]
+    
     public GameObject prefabTabContainer;
-    [HideInInspector]
+
     public GameObject ongletPanel;
-    [HideInInspector]
+
     public GameObject viewPort;
 
 
@@ -74,7 +75,9 @@ public class ModelModelGO : MonoBehaviour
         //Création du conteneur des onglets
         instanceButtonInteraction = Instantiate(prefabTabContainer, ongletPanel.transform);
         instanceButtonInteraction.name = i + instanceButtonInteraction.name;
-
+        instanceButtonInteraction.AddComponent<GridLayoutGroup>();
+        instanceButtonInteraction.GetComponent<GridLayoutGroup>().cellSize = new Vector2 (100f,50f);
+        instanceButtonInteraction.AddComponent<ResizeOnglets>();
         interactions.Add(new Interaction(i, instanceInteraction.transform.localScale.x, instanceInteraction.transform.position, new List<Fenetre>()));
     }
 
@@ -105,10 +108,13 @@ public class ModelModelGO : MonoBehaviour
         instanceOngletContent = Instantiate(prefabOngletContent, myContent.transform);
         instanceOngletContent.name = j + instanceOngletContent.name;
 
-  
+        
+        instanceOngletContent.AddComponent<GridLayoutGroup>();
+        instanceOngletContent.GetComponent<GridLayoutGroup>().cellSize = new Vector2(500f, 112f);
+        instanceOngletContent.AddComponent<ResizeContents>();
         instanceOngletContent.AddComponent<TablModelGO>();
-        instanceOngletContent.GetComponent<TablModelGO>().nom = instanceOngletButton.GetComponentInChildren<TextMeshProUGUI>();
-        instanceOngletContent.GetComponent<TablModelGO>().contenu = new List<Contenu>();
+        instanceOngletContent.GetComponent<TablModelGO>().Nom = instanceOngletButton.GetComponentInChildren<TextMeshProUGUI>();
+        instanceOngletContent.GetComponent<TablModelGO>().Contenu = new List<Contenu>();
         instanceOngletContent.GetComponent<TablModelGO>().IndexInteraction = i;
         instanceOngletContent.GetComponent<TablModelGO>().IndexOnglet = j;
         interaction.onglets.Add(new Fenetre(j, instanceOngletButton.GetComponentInChildren<TextMeshProUGUI>(), new List<GameObject>()));
