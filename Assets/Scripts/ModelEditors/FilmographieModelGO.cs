@@ -60,6 +60,7 @@ public class FilmographieModelGO : MonoBehaviour
         if (elements.Count == 0)
         {
             i = 0;
+            max = 0;
         }
         else
         {
@@ -79,7 +80,6 @@ public class FilmographieModelGO : MonoBehaviour
         instanceFilm.name = i + instanceFilm.name;
         instanceBouton.name = i + instanceBouton.name;
 
-        //aled
         UnityAction<int> methodDelegate1 = Delegate.CreateDelegate(typeof(UnityAction<int>), this, "AfficherFilm") as UnityAction<int>;
         UnityAction methodDelegate2 = Delegate.CreateDelegate(typeof(UnityAction), this, "ControleVideo") as UnityAction;
 
@@ -107,19 +107,17 @@ public class FilmographieModelGO : MonoBehaviour
     /// <summary>
     /// Supprime le film de la liste éléments à l'index donné. 
     /// Supprime aussi les deux Prefabs générés lors de sa création.
-    /// 
-    /// A REVOIR ATTENTION L'INDEX OHLALA
     /// </summary>
     /// <param name="index">Index du film à supprimer.</param>
     public void RemoveIndex(int index)
     {
         Debug.Log(index + "AfficheFilm(Clone)");
-        Film filmToDestroy = elements.ElementAt(index);
+        Film filmToDestroy = elements.Single(fi => fi.id == index);
         GameObject toDestroyFilm =  panelExtraitFilm.transform.Find(filmToDestroy.id + "AfficheFilm(Clone)").gameObject;
         GameObject toDestroyBouton = listeExtraitFilms.transform.Find(filmToDestroy.id + "BoutonExtraitFilmo(Clone)").gameObject;
         DestroyImmediate(toDestroyFilm);
         DestroyImmediate(toDestroyBouton);
-        elements.RemoveAt(index);
+        elements.Remove(filmToDestroy);
     }
 
     /// <summary>
@@ -128,10 +126,7 @@ public class FilmographieModelGO : MonoBehaviour
     /// <param name="index"></param>
     public void AfficherFilm(int index)
     {
-        Debug.Log(index);
-        Film film = elements[index];
-        Debug.Log(elements.Count);
-        Debug.Log(film.Id);
+        Film film = elements.Single(fi => fi.id == index);
         foreach(Film f in elements)
         {
             if (f.Equals(film))
