@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Video;
@@ -32,16 +33,17 @@ public class FilmographieEditor : Editor
 
         DrawUILine(Color.black);
 
-        for (int i = 0; i < myTarget.elements.Count; i++)
+        foreach(Film f in myTarget.elements.ToList())
         {
-            EditorGUILayout.LabelField("Film n°" + (i + 1), "");
+            int index = myTarget.elements.IndexOf(f);
+            EditorGUILayout.LabelField("Film n°" + (index+ 1), "");
             EditorGUILayout.LabelField("Titre du film", "");
-            myTarget.elements[i].titre.text = EditorGUILayout.TextArea(myTarget.elements[i].titre.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
+            myTarget.elements[index].titre.text = EditorGUILayout.TextArea(myTarget.elements[index].titre.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
             EditorGUILayout.LabelField("Image du film", "");
             // image
-            if (GUILayout.Button("Charger image du film n°" + (i + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+            if (GUILayout.Button("Charger image du film n°" + (index + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
             {
-                string file = EditorUtility.OpenFilePanel("Image film n°" + (i + 1), Application.dataPath + "/Resources/Sprites", "jpg,png,bmp,jpeg");
+                string file = EditorUtility.OpenFilePanel("Image film n°" + (index + 1), Application.dataPath + "/Resources/Sprites", "jpg,png,bmp,jpeg");
 
                 if (file != null)
                 {
@@ -73,20 +75,20 @@ public class FilmographieEditor : Editor
 
 
                     Sprite texture = Resources.Load<Sprite>("Sprites/" + final);
-                    myTarget.elements[i].spriteImage = null;
-                    myTarget.elements[i].image.sprite = texture;
+                    myTarget.elements[index].spriteImage = null;
+                    myTarget.elements[index].image.sprite = texture;
                 }
             }
 
-            if (myTarget.elements[i].spriteImage != null)
+            if (myTarget.elements[index].spriteImage != null)
             {
-                myTarget.elements[i].image.sprite = myTarget.elements[i].spriteImage;
+                myTarget.elements[index].image.sprite = myTarget.elements[index].spriteImage;
             }
 
             // video à faire
-            if (GUILayout.Button("Charger l'extrait du film n°" + (i + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+            if (GUILayout.Button("Charger l'extrait du film n°" + (index + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
             {
-                string file = EditorUtility.OpenFilePanel("Extrait film n°" + (i + 1), Application.dataPath + "/Resources/Videos", "mp4");
+                string file = EditorUtility.OpenFilePanel("Extrait film n°" + (index + 1), Application.dataPath + "/Resources/Videos", "mp4");
 
                 if (file != null)
                 {
@@ -118,21 +120,21 @@ public class FilmographieEditor : Editor
 
                     VideoClip video = Resources.Load<VideoClip>("Videos/" + final);
                     //à continuer
-                    myTarget.elements[i].videoClip = video;
+                    myTarget.elements[index].videoClip = video;
                 }
 
-                if (myTarget.elements[i].spriteImage != null)
+                if (myTarget.elements[index].spriteImage != null)
                 {
-                    myTarget.elements[i].image.sprite = myTarget.elements[i].spriteImage;
+                    myTarget.elements[index].image.sprite = myTarget.elements[index].spriteImage;
                 }
             }
 
             EditorGUILayout.LabelField("Détails du film", "");
-            myTarget.elements[i].description.text = EditorGUILayout.TextArea(myTarget.elements[i].description.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
+            myTarget.elements[index].description.text = EditorGUILayout.TextArea(myTarget.elements[index].description.text, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
 
-            if (GUILayout.Button("Retirer Film n°" + (i + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+            if (GUILayout.Button("Retirer Film n°" + (index + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
             {
-                myTarget.RemoveIndex(i);
+                myTarget.RemoveIndex(f.id);
             }
             DrawUILine(Color.black);
         }

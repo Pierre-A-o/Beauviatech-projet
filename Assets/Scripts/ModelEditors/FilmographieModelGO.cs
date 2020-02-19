@@ -11,7 +11,6 @@ public class FilmographieModelGO : MonoBehaviour
 {
     [HideInInspector]
     public TextMeshProUGUI description;
-    [HideInInspector]
     public List<Film> elements;
 
     private int i;
@@ -63,6 +62,7 @@ public class FilmographieModelGO : MonoBehaviour
         if (elements.Count == 0)
         {
             i = 0;
+            max = 0;
         }
         else
         {
@@ -82,7 +82,6 @@ public class FilmographieModelGO : MonoBehaviour
         instanceFilm.name = i + instanceFilm.name;
         instanceBouton.name = i + instanceBouton.name;
 
-        //aled
         UnityAction<int> methodDelegate1 = Delegate.CreateDelegate(typeof(UnityAction<int>), this, "AfficherFilm") as UnityAction<int>;
         UnityAction methodDelegate2 = Delegate.CreateDelegate(typeof(UnityAction), this, "ControleVideo") as UnityAction;
 
