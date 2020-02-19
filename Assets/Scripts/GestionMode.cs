@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class GestionMode : MonoBehaviour
 {
-    [SerializeField]
-    private bool Active3D;
+    public bool Active3D;
 
     public Button Boutton3D;
     public Button BouttonVR;
+
+    public Color actif;
+    public Color inactif;
 
     // Start is called before the first frame update
     void Start()
@@ -27,17 +29,21 @@ public class GestionMode : MonoBehaviour
     {
         Active3D = true;
         ColorBlock colorDisable = BouttonVR.colors;
-        colorDisable.normalColor = Color.black;
+        colorDisable.normalColor = inactif;
+        BouttonVR.colors = colorDisable;
         ColorBlock colorSelect = Boutton3D.colors;
-        colorSelect.normalColor = Color.red;        
+        colorSelect.normalColor = actif;
+        Boutton3D.colors = colorSelect;
     }
 
     public void setVR()
     {
         Active3D = false;
         ColorBlock colorDisable = Boutton3D.colors;
-        colorDisable.normalColor = Color.black;
+        colorDisable.normalColor = inactif;
+        Boutton3D.colors = colorDisable;
         ColorBlock colorSelect = BouttonVR.colors;
-        colorSelect.normalColor = Color.red;
+        colorSelect.normalColor = actif;
+        BouttonVR.colors = colorSelect;
     }
 }
