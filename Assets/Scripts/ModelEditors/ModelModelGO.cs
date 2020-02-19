@@ -7,32 +7,46 @@ using System.Linq;
 public class ModelModelGO : MonoBehaviour
 {
     public List<Interaction> interactions;
+ 
     public GameObject cameraModel;
-    
+    [HideInInspector]
     public GameObject prefabInteraction;
-    
+    [HideInInspector]
     public GameObject prefabOngletButton;
-    
+    [HideInInspector]
     public GameObject prefabOngletContent;
-    
+    [HideInInspector]
+    public GameObject prefabContentInteraction;
+    [HideInInspector]
+    public GameObject prefabTabContainer;
+    [HideInInspector]
     public GameObject ongletPanel;
-    
-    public GameObject scrollView;
+    [HideInInspector]
+    public GameObject viewPort;
+
 
     private int i;
     private int maxI;
     private int j;
     private int maxJ;
+    private float rad = 0.1f;
 
     private GameObject instanceInteraction;
     private GameObject instanceOngletButton;
     private GameObject instanceOngletContent;
+    private GameObject instanceContentInteraction;
+    private GameObject instanceButtonInteraction;
+  
 
     public void InstancieNouvelleInteraction(Vector3 position)
     {
         if (interactions == null)
         {
             interactions = new List<Interaction>();
+            i = 0;
+        }
+        else if (interactions.Count == 0)
+        {
             i = 0;
         }
         else
@@ -46,14 +60,22 @@ public class ModelModelGO : MonoBehaviour
             }
             i = maxI + 1;
         }
+      
+        //Création de la zone clique
         instanceInteraction = Instantiate(prefabInteraction, cameraModel.transform);
         instanceInteraction.name = i + instanceInteraction.name;
+        instanceInteraction.transform.localScale = new Vector3(rad, rad, rad);
         instanceInteraction.transform.position = position;
 
-        //voir si on met une valeur de base à un radius
-        float rad = 10f;
-        interactions.Add(new Interaction(i, rad, instanceInteraction.transform.position, new List<Fenetre>()));
-        Debug.Log(interactions.Count);
+        //Création du content lié à la zone clique
+        instanceContentInteraction = Instantiate(prefabContentInteraction, viewPort.transform);
+        instanceContentInteraction.name = i + instanceContentInteraction.name;
+
+        //Création du conteneur des onglets
+        instanceButtonInteraction = Instantiate(prefabTabContainer, ongletPanel.transform);
+        instanceButtonInteraction.name = i + instanceButtonInteraction.name;
+
+        interactions.Add(new Interaction(i, instanceInteraction.transform.localScale.x, instanceInteraction.transform.position, new List<Fenetre>()));
     }
 
     public void InstancieNouvelOnglet(int index)
@@ -75,11 +97,30 @@ public class ModelModelGO : MonoBehaviour
             j = maxJ + 1;
         }
 
-        instanceOngletButton = Instantiate(prefabOngletButton, ongletPanel.transform);
+        GameObject myContent = viewPort.transform.Find(index + "ContentInteraction(Clone)").gameObject;
+        GameObject myContainer = ongletPanel.transform.Find(index + "TabContainer(Clone)").gameObject;
+
+        instanceOngletButton = Instantiate(prefabOngletButton, myContainer.transform);
         instanceOngletButton.name = j + instanceOngletButton.name;
-        instanceOngletContent = Instantiate(prefabOngletContent, scrollView.transform);
+        instanceOngletContent = Instantiate(prefabOngletContent, myContent.transform);
         instanceOngletContent.name = j + instanceOngletContent.name;
-        interaction.onglets.Add(new Fenetre(j, instanceOngletButton.GetComponent<TextMeshProUGUI>(), new List<GameObject>()));
+
+  
+        instanceOngletContent.AddComponent<TablModelGO>();
+        instanceOngletContent.GetComponent<TablModelGO>().nom = instanceOngletButton.GetComponentInChildren<TextMeshProUGUI>();
+        instanceOngletContent.GetComponent<TablModelGO>().contenu = new List<Contenu>();
+        instanceOngletContent.GetComponent<TablModelGO>().IndexInteraction = i;
+        instanceOngletContent.GetComponent<TablModelGO>().IndexOnglet = j;
+        interaction.onglets.Add(new Fenetre(j, instanceOngletButton.GetComponentInChildren<TextMeshProUGUI>(), new List<GameObject>()));
+
+
+    }
+
+    public void AjouteContenu(int i, int j, GameObject contenu)
+    {
+        Interaction interaction = interactions.Single(it => it.id == i);
+        Fenetre onglet = interaction.onglets.Single(on => on.id == j);
+        onglet.contenu.Add(contenu);
     }
 
     public void InstancieNouveauContenu(int interactionIndex, int ongletIndex)
@@ -130,6 +171,10 @@ public class Fenetre
     public TextMeshProUGUI nom;
     public List<GameObject> contenu;
 
+    public Fenetre()
+    {
+
+    }
     public Fenetre(int id, TextMeshProUGUI nom, List<GameObject> contenu)
     {
         this.id = id;
