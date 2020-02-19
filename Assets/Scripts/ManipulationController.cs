@@ -18,8 +18,21 @@ public class ManipulationController : MonoBehaviour
     private Vector3 myPos;
     private float speedTransi;
     private float myScale = 1.0f;
-    float smooth = 5.0f;
-    public float AngleDeRotationMaximal = 160.0f;
+
+    public bool movingleft;
+    public bool movingright;
+
+    private enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
+    private RotationAxes axes = RotationAxes.MouseXAndY;
+    private float sensitivityX = 5F;
+    private float sensitivityY = 5F;
+    private float minimumX = -180F;
+    private float maximumX = 180F;
+    private float minimumY = -180F;
+    private float maximumY = 180F;
+    private float rotationX = 0F;
+    private float rotationY = 0F;
+    Quaternion originalRotation;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +40,7 @@ public class ManipulationController : MonoBehaviour
         speedTransi = 2.0f;
         baseScale = Object.transform.localScale;
         myPos = Object.transform.position;
+        originalRotation = Object.transform.localRotation;
     }
 
     // Update is called once per frame
@@ -34,14 +48,6 @@ public class ManipulationController : MonoBehaviour
     {
         if(!pres_panel.activeSelf && !liste_film.activeSelf && !isInterviewCurrentScene)
         {
-            if (info_panel.activeSelf)
-            {
-                MoveLeft();
-            }
-            else
-            {
-                MoveRight();
-            }
             ZoomCamera();
             RotateCamera();
         } else
@@ -50,22 +56,55 @@ public class ManipulationController : MonoBehaviour
             Object.transform.position = myPos;
             myScale = 1.0f;
         }
+        if (movingleft)
+        {
+            MoveLeft();
+        }
+        if (movingright)
+        {
+            MoveRight();
+        }
     }
 
     private void RotateCamera()
     {
-        // Dampen towards the target rotation
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetMouseButton(0))
         {
-            float tiltAroundX = -Input.GetAxis("Vertical") * AngleDeRotationMaximal;
-            Quaternion target = Quaternion.Euler(tiltAroundX, 0, 0);
-            Object.transform.rotation = Quaternion.Slerp(Object.transform.rotation, target, Time.deltaTime * smooth);
-        } else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
-        {
-            float tiltAroundY = Input.GetAxis("Horizontal") * AngleDeRotationMaximal;
-            Quaternion target = Quaternion.Euler(0, tiltAroundY, 0);
-            Object.transform.rotation = Quaternion.Slerp(Object.transform.rotation, target, Time.deltaTime * smooth);
+            if (axes == RotationAxes.MouseXAndY)
+            {
+                // Read the mouse input axis
+                rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+                rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+                rotationX = ClampAngle(rotationX, minimumX, maximumX);
+                rotationY = ClampAngle(rotationY, minimumY, maximumY);
+                Quaternion xQuaternion = Quaternion.AngleAxis(rotationX, Vector3.up);
+                Quaternion yQuaternion = Quaternion.AngleAxis(rotationY, -Vector3.right);
+                Object.transform.localRotation = originalRotation * xQuaternion * yQuaternion;
+            }
+            else if (axes == RotationAxes.MouseX)
+            {
+                rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+                rotationX = ClampAngle(rotationX, minimumX, maximumX);
+                Quaternion xQuaternion = Quaternion.AngleAxis(rotationX, Vector3.up);
+                Object.transform.localRotation = originalRotation * xQuaternion;
+            }
+            else
+            {
+                rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
+                rotationY = ClampAngle(rotationY, minimumY, maximumY);
+                Quaternion yQuaternion = Quaternion.AngleAxis(-rotationY, Vector3.right);
+                Object.transform.localRotation = originalRotation * yQuaternion;
+            }
         }
+    }
+
+    public static float ClampAngle(float angle, float min, float max)
+    {
+        if (angle <= -360F)
+         angle += 360F;
+        if (angle >= 360F)
+         angle -= 360F;
+        return Mathf.Clamp(angle, min, max);
     }
 
     private void ZoomCamera()
@@ -85,11 +124,17 @@ public class ManipulationController : MonoBehaviour
 
     public void MoveLeft()
     {
-        Object.transform.position = Vector3.Lerp(Object.transform.position, cibleLeft.transform.position, speedTransi * Time.deltaTime);
+        if (!pres_panel.activeSelf && !liste_film.activeSelf && !isInterviewCurrentScene)
+        {
+            Object.transform.position = Vector3.Lerp(Object.transform.position, cibleLeft.transform.position, speedTransi * Time.deltaTime);
+        }
     }
 
     public void MoveRight()
     {
-        Object.transform.position = Vector3.Lerp(Object.transform.position, cibleRight.transform.position, speedTransi * Time.deltaTime);
+        if (!pres_panel.activeSelf && !liste_film.activeSelf && !isInterviewCurrentScene)
+        {
+            Object.transform.position = Vector3.Lerp(Object.transform.position, cibleRight.transform.position, speedTransi * Time.deltaTime);
+        }
     }
 }

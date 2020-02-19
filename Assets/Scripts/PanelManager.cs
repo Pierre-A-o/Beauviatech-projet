@@ -15,7 +15,7 @@ public class PanelManager : MonoBehaviour
     private bool transitioning;
     private Vector3 transition_goal;
     private Vector3 distanceCameraPanel;
-    public GameObject camera;
+    public GameObject myCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -44,15 +44,18 @@ public class PanelManager : MonoBehaviour
 
     public void TransiCameraPanelInterviews()
     {
-        camera.SetActive(false);
-        transition_goal = PanelInterviews.transform.position + distanceCameraPanel;
-        GetComponent<ManipulationController>().isInterviewCurrentScene = true;
-        transitioning = true;
+        if (!InfoPanel.activeSelf)
+        {
+            myCamera.SetActive(false);
+            transition_goal = PanelInterviews.transform.position + distanceCameraPanel;
+            GetComponent<ManipulationController>().isInterviewCurrentScene = true;
+            transitioning = true;
+        }
     }
 
     public void TransiCameraPanelModeleScene()
     {
-        camera.SetActive(true);
+        myCamera.SetActive(true);
         transition_goal = PanelSceneModel.transform.position + distanceCameraPanel;
         GetComponent<ManipulationController>().isInterviewCurrentScene = false;
         transitioning = true;
@@ -65,6 +68,8 @@ public class PanelManager : MonoBehaviour
 
     IEnumerator DisparitionPanel()
     {
+        GetComponent<ManipulationController>().movingleft = false;
+        GetComponent<ManipulationController>().movingright = true;
         InfoPanelAnimator.SetTrigger("Disparition");
         yield return new WaitForSeconds(1);
         InfoPanel.SetActive(false);

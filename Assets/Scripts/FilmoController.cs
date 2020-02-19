@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class FilmoController : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class FilmoController : MonoBehaviour
     public GameObject extrait_panel;
     public GameObject pres_panel;
     public GameObject listeDeFilms;
+    public GameObject info_panel;
+    public VideoPlayer videoPlayer;
     public TextMeshProUGUI presentation;
     public TextMeshProUGUI filmographie;
 
@@ -30,31 +33,36 @@ public class FilmoController : MonoBehaviour
 
     public void GoToPrésentation()
     {
-        GetComponent<PanelManager>().DisparitionP();
+        if (!info_panel.activeSelf)
+        {
+            videoPlayer.Pause();
+            pres_panel.SetActive(true);
+            description_panel.SetActive(false);
+            extrait_panel.SetActive(false);
+            listeDeFilms.SetActive(false);
 
-        pres_panel.SetActive(true);
-        description_panel.SetActive(false);
-        extrait_panel.SetActive(false);
-        listeDeFilms.SetActive(false);
-
-        presentation.color = myblue;
-        filmographie.color = Color.white;
-
+            presentation.color = myblue;
+            filmographie.color = Color.white;
+        }
     }
 
     public void GoToFilmographie()
     {
-        pres_panel.SetActive(false);
-        description_panel.SetActive(true);
-        extrait_panel.SetActive(false);
-        listeDeFilms.SetActive(true);
+        if (!info_panel.activeSelf)
+        {
+            pres_panel.SetActive(false);
+            description_panel.SetActive(true);
+            extrait_panel.SetActive(false);
+            listeDeFilms.SetActive(true);
 
-        filmographie.color = myblue;
-        presentation.color = Color.white;
+            filmographie.color = myblue;
+            presentation.color = Color.white;
+        }
     }    
 
     public void GoToPrincipal()
     {
+        videoPlayer.Pause();
         pres_panel.SetActive(false);
         description_panel.SetActive(false);
         extrait_panel.SetActive(false);

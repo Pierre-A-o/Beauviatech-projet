@@ -26,6 +26,8 @@ public class ClickZoneCliquable : MonoBehaviour
             {
                 print(hit.collider.name);
                 FenetreInfo.SetActive(true);
+                GetComponent<ManipulationController>().movingleft = true;
+                GetComponent<ManipulationController>().movingright = false;
             }
         }
     }

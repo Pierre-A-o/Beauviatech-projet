@@ -33,11 +33,11 @@ public class interviews : MonoBehaviour
 
     public void LanceVideoClick()
     {
-        videoPlayer.Play();
-        videoPlayer.Pause();
         retourAccueilBoutton.SetActive(false);
         listVideos.SetActive(false);
         rawImageGameObject.SetActive(true);
+        videoPlayer.Play();
+        videoPlayer.Pause();
     }
 
     public void RetourAccueil()
@@ -51,6 +51,7 @@ public class interviews : MonoBehaviour
         rawImageGameObject.SetActive(false);
         retourAccueilBoutton.SetActive(true);
         listVideos.SetActive(true);
+        videoPlayer.Pause();
     }
 
     public void PlayPause()
