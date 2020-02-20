@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.Events;
+using System;
 
 public class ModelModelGO : MonoBehaviour
 {
@@ -71,6 +73,11 @@ public class ModelModelGO : MonoBehaviour
         //Création du content lié à la zone clique
         instanceContentInteraction = Instantiate(prefabContentInteraction, viewPort.transform);
         instanceContentInteraction.name = i + instanceContentInteraction.name;
+        instanceContentInteraction.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
+        instanceContentInteraction.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
+        instanceContentInteraction.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+        instanceContentInteraction.GetComponent<RectTransform>().offsetMax = new Vector2(0f, 0f);
+        instanceContentInteraction.GetComponent<RectTransform>().offsetMin = new Vector2(0f, 0f);
 
         //Création du conteneur des onglets
         instanceButtonInteraction = Instantiate(prefabTabContainer, ongletPanel.transform);
@@ -78,6 +85,11 @@ public class ModelModelGO : MonoBehaviour
         instanceButtonInteraction.AddComponent<GridLayoutGroup>();
         instanceButtonInteraction.GetComponent<GridLayoutGroup>().cellSize = new Vector2 (100f,50f);
         instanceButtonInteraction.AddComponent<ResizeOnglets>();
+        instanceButtonInteraction.GetComponent<RectTransform>().anchorMin = new Vector2(0f, 0f);
+        instanceButtonInteraction.GetComponent<RectTransform>().anchorMax = new Vector2(1f, 1f);
+        instanceButtonInteraction.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+        instanceButtonInteraction.GetComponent<RectTransform>().offsetMax = new Vector2(0f, 0f);
+        instanceButtonInteraction.GetComponent<RectTransform>().offsetMin = new Vector2(0f, 0f);
         interactions.Add(new Interaction(i, instanceInteraction.transform.localScale.x, instanceInteraction.transform.position, new List<Fenetre>()));
     }
 
@@ -107,7 +119,8 @@ public class ModelModelGO : MonoBehaviour
         instanceOngletButton.name = j + instanceOngletButton.name;
         instanceOngletContent = Instantiate(prefabOngletContent, myContent.transform);
         instanceOngletContent.name = j + instanceOngletContent.name;
-
+        UnityAction<int> methodDelegate = Delegate.CreateDelegate(typeof(UnityAction<int>), this, "AfficherOnglet") as UnityAction<int>;
+        UnityEditor.Events.UnityEventTools.AddIntPersistentListener(instanceOngletButton.GetComponentInChildren<Button>().onClick, methodDelegate, j);
         
         instanceOngletContent.AddComponent<GridLayoutGroup>();
         instanceOngletContent.GetComponent<GridLayoutGroup>().cellSize = new Vector2(500f, 112f);
@@ -118,8 +131,39 @@ public class ModelModelGO : MonoBehaviour
         instanceOngletContent.GetComponent<TablModelGO>().IndexInteraction = i;
         instanceOngletContent.GetComponent<TablModelGO>().IndexOnglet = j;
         interaction.onglets.Add(new Fenetre(j, instanceOngletButton.GetComponentInChildren<TextMeshProUGUI>(), new List<GameObject>()));
+    }
 
+    public class doubleInt : UnityEngine.Object
+    {
+        public int contentInteraction;
+        public int tabContent;
 
+        public doubleInt(int a, int b)
+        {
+            contentInteraction = a;
+            tabContent = b;
+        }
+    }
+
+    public void AfficherOnglet(int index)
+    {
+        Debug.Log(index);
+        foreach(Transform child in viewPort.transform)
+        {
+            if (child.gameObject.activeSelf)
+            {
+                foreach (Transform chilfOfChild in child)
+                {
+                    if (chilfOfChild.name.StartsWith("" + index))
+                    {
+                        chilfOfChild.GetComponent<CanvasGroup>().alpha = 1;
+                    } else
+                    {
+                        chilfOfChild.GetComponent<CanvasGroup>().alpha = 0;
+                    }
+                }
+            }
+        }
     }
 
     public void AjouteContenu(int i, int j, GameObject contenu)

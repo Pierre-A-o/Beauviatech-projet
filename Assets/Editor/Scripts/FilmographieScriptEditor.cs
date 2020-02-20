@@ -86,6 +86,7 @@ public class FilmographieEditor : Editor
             }
 
             // video à faire
+            EditorGUILayout.LabelField("Extrait du film", "");
             if (GUILayout.Button("Charger l'extrait du film n°" + (index + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
             {
                 string file = EditorUtility.OpenFilePanel("Extrait film n°" + (index + 1), Application.dataPath + "/Resources/Videos", "mp4");

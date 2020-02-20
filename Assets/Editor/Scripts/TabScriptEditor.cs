@@ -60,8 +60,8 @@ public class TabScriptEditor : Editor
             myTitle.transform.rotation = myTarget.gameObject.transform.rotation;
             myTitle.transform.localPosition = new Vector3(myTitle.transform.position.x, myTitle.transform.position.y, 0f);
             myTitle.AddComponent<TextMeshProUGUI>();
-            myParagraphe.GetComponent<TextMeshProUGUI>().enableAutoSizing = true;
-            myParagraphe.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.Center;
+            myTitle.GetComponent<TextMeshProUGUI>().enableAutoSizing = true;
+            myTitle.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.Center;
             Contenu contenu = new Contenu(i, myTitle);
             myTarget.Contenu.Add(contenu);
             theModel.GetComponent<ModelModelGO>().AjouteContenu(myTarget.IndexInteraction,myTarget.IndexOnglet,myTitle);
