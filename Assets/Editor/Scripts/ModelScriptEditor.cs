@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -62,29 +63,45 @@ public class ModelScriptEditor : Editor
     { 
         DrawDefaultInspector();
 
-        for (int i = 0; i < myTarget.interactions.Count; i++)
+        foreach(Interaction i in myTarget.interactions.ToList())
         {
-            EditorGUILayout.LabelField("Intéraction n°" + (i + 1), "");
-            EditorGUILayout.LabelField("Position de l'intéraction n°" + (i + 1), "");
-            myTarget.interactions[i].position = EditorGUILayout.Vector3Field("", myTarget.interactions[i].position, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
-            GameObject.Find(i + "ZoneClick(Clone)").transform.position = myTarget.interactions[i].position;
+            DrawUILineFat(Color.black);
+            int indexInteraction = myTarget.interactions.IndexOf(i);
+            EditorGUILayout.LabelField("Intéraction n°" + (indexInteraction + 1), "");
+            EditorGUILayout.LabelField("Position de l'intéraction n°" + (indexInteraction+ 1), "");
+            myTarget.interactions[indexInteraction].position = EditorGUILayout.Vector3Field("", myTarget.interactions[indexInteraction].position, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
+            GameObject.Find(i.id + "ZoneClick(Clone)").transform.position = myTarget.interactions[indexInteraction].position;
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Taille de l'intéraction n°" + (i + 1), "");
-            myTarget.interactions[i].radius = EditorGUILayout.FloatField(myTarget.interactions[i].radius, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
-            float myRad = myTarget.interactions[i].radius;
-            GameObject.Find(i + "ZoneClick(Clone)").transform.localScale = new Vector3(myRad, myRad, myRad);
-            if (GUILayout.Button("Ajouter un onglet à l'intéraction " + (i + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+            EditorGUILayout.LabelField("Taille de l'intéraction n°" + (indexInteraction+ 1), "");
+            myTarget.interactions[indexInteraction].radius = EditorGUILayout.FloatField(myTarget.interactions[indexInteraction].radius, new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) });
+            float myRad = myTarget.interactions[indexInteraction].radius;
+            GameObject.Find(i.id + "ZoneClick(Clone)").transform.localScale = new Vector3(myRad, myRad, myRad);
+            if (GUILayout.Button("Ajouter un onglet à l'intéraction " + (indexInteraction+ 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
             {
-                myTarget.InstancieNouvelOnglet(i);
+                myTarget.InstancieNouvelOnglet(i.id);
             }
-            for (int j = 0; j < myTarget.interactions[i].onglets.Count; j++)
+            foreach(Fenetre f in i.onglets.ToList())
             {
-                EditorGUILayout.LabelField("Onglet n°" + (j + 1), "");
-                if (GUILayout.Button("Edition mise en page de l'onglet " + (j + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+                DrawUILineFat(Color.black,1);
+                int indexOnglet = myTarget.interactions.Single(inter => inter.id == i.id).onglets.IndexOf(f);
+                EditorGUILayout.LabelField("Onglet n°" + (indexOnglet + 1), "");
+                if (GUILayout.Button("Edition mise en page de l'onglet " + (indexOnglet + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
                 {
-                    Selection.activeGameObject = GameObject.Find(i + "ContentInteraction(Clone)").transform.Find(j + "TabContent(Clone)").gameObject;
+                    Selection.activeGameObject = GameObject.Find(i.id + "ContentInteraction(Clone)").transform.Find(f.id + "TabContent(Clone)").gameObject;
                 }
+
+                if (GUILayout.Button("Supprimer onglet " + (indexOnglet + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+                {
+                    myTarget.RetireOnglet(i.id, f.id);
+                }
+                
             }
+
+            if (GUILayout.Button("Supprimer Intéraction " + (indexInteraction + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
+            {
+                myTarget.RetireInteraction(i.id);
+            }
+            
         }
 
         if (GUI.changed)
@@ -95,6 +112,15 @@ public class ModelScriptEditor : Editor
 
     }
 
+    void DrawUILineFat(Color color, int thickness = 2, int padding = 10)
+    {
+        Rect r = EditorGUILayout.GetControlRect(GUILayout.Height(padding + thickness));
+        r.height = thickness;
+        r.y += padding / 2;
+        r.x -= 2;
+        r.width += 6;
+        EditorGUI.DrawRect(r, color);
+    }
 
 
 

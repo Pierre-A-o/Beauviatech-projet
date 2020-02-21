@@ -8,6 +8,7 @@ public class ManipulationController : MonoBehaviour
     public GameObject Object;
     public GameObject cibleLeft;
     public GameObject cibleRight;
+    public GameObject cibleBottom;
 
     public GameObject pres_panel;
     public GameObject liste_film;
@@ -21,15 +22,17 @@ public class ManipulationController : MonoBehaviour
 
     public bool movingleft;
     public bool movingright;
+    public bool movingbottom;
+    public bool pointingOnInfopanel;
 
     private enum RotationAxes { MouseXAndY = 0, MouseX = 1, MouseY = 2 }
     private RotationAxes axes = RotationAxes.MouseXAndY;
     private float sensitivityX = 5F;
     private float sensitivityY = 5F;
-    private float minimumX = -180F;
-    private float maximumX = 180F;
-    private float minimumY = -180F;
-    private float maximumY = 180F;
+    private float minimumX = -150F;
+    private float maximumX = 150F;
+    private float minimumY = -150F;
+    private float maximumY = 150F;
     private float rotationX = 0F;
     private float rotationY = 0F;
     Quaternion originalRotation;
@@ -38,9 +41,12 @@ public class ManipulationController : MonoBehaviour
     void Start()
     {
         speedTransi = 2.0f;
-        baseScale = Object.transform.localScale;
+        baseScale = Object.transform.localScale;  
         myPos = Object.transform.position;
         originalRotation = Object.transform.localRotation;
+        movingbottom = false;
+        movingleft = false;
+        movingright = false;
     }
 
     // Update is called once per frame
@@ -52,6 +58,9 @@ public class ManipulationController : MonoBehaviour
             RotateCamera();
         } else
         {
+            movingbottom = false;
+            movingleft = false;
+            movingright = false;
             Object.transform.localScale = baseScale;
             Object.transform.position = myPos;
             myScale = 1.0f;
@@ -64,16 +73,29 @@ public class ManipulationController : MonoBehaviour
         {
             MoveRight();
         }
+        if (movingbottom)
+        {
+            MoveBottom();
+        }
     }
 
+    public void pointingAtInfopanel()
+    {
+        pointingOnInfopanel = true;
+    }
+
+    public void stopPointingAtInfoPanel()
+    {
+        pointingOnInfopanel = false;
+    }
     private void RotateCamera()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && !pointingOnInfopanel)
         {
             if (axes == RotationAxes.MouseXAndY)
             {
                 // Read the mouse input axis
-                rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+                rotationX += -Input.GetAxis("Mouse X") * sensitivityX;
                 rotationY += Input.GetAxis("Mouse Y") * sensitivityY;
                 rotationX = ClampAngle(rotationX, minimumX, maximumX);
                 rotationY = ClampAngle(rotationY, minimumY, maximumY);
@@ -83,7 +105,7 @@ public class ManipulationController : MonoBehaviour
             }
             else if (axes == RotationAxes.MouseX)
             {
-                rotationX += Input.GetAxis("Mouse X") * sensitivityX;
+                rotationX += -Input.GetAxis("Mouse X") * sensitivityX;
                 rotationX = ClampAngle(rotationX, minimumX, maximumX);
                 Quaternion xQuaternion = Quaternion.AngleAxis(rotationX, Vector3.up);
                 Object.transform.localRotation = originalRotation * xQuaternion;
@@ -109,16 +131,21 @@ public class ManipulationController : MonoBehaviour
 
     private void ZoomCamera()
     {
-        myScale += Input.GetAxis("Mouse ScrollWheel");
-        if(myScale > 2.0f)
+        if(!pointingOnInfopanel)
         {
-            myScale = 2.0f;
-        } else if(myScale < 0.5f)
-        {
-            myScale = 0.5f;
-        } else
-        {
-            Object.transform.localScale *= (1 + Input.GetAxis("Mouse ScrollWheel"));
+            myScale += Input.GetAxis("Mouse ScrollWheel");
+            if (myScale > 2.0f)
+            {
+                myScale = 2.0f;
+            }
+            else if (myScale < 0.7f)
+            {
+                myScale = 0.7f;
+            }
+            else
+            {
+                Object.transform.localScale *= (1 + Input.GetAxis("Mouse ScrollWheel"));
+            }
         }
     }
 
@@ -135,6 +162,14 @@ public class ManipulationController : MonoBehaviour
         if (!pres_panel.activeSelf && !liste_film.activeSelf && !isInterviewCurrentScene)
         {
             Object.transform.position = Vector3.Lerp(Object.transform.position, cibleRight.transform.position, speedTransi * Time.deltaTime);
+        }
+    }
+
+    public void MoveBottom()
+    {
+        if (!pres_panel.activeSelf && !liste_film.activeSelf && !isInterviewCurrentScene)
+        {
+            Object.transform.position = Vector3.Lerp(Object.transform.position, cibleBottom.transform.position, speedTransi * Time.deltaTime);
         }
     }
 }

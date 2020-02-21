@@ -5,6 +5,7 @@ using UnityEngine;
 [CustomEditor(typeof(PresentationModelGO))]
 public class PresentationScriptEditor : Editor
 {
+   
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
@@ -57,8 +58,8 @@ public class PresentationScriptEditor : Editor
 
 
                 Sprite texture = Resources.Load<Sprite>("Sprites/" + final);
-                myTarget.spriteImage1 = null;
-                myTarget.image1.sprite = texture;
+                myTarget.spriteImage1 = texture;
+               
             }
         }
 
@@ -99,8 +100,8 @@ public class PresentationScriptEditor : Editor
              
 
                 Sprite texture = Resources.Load<Sprite>("Sprites/" + final);
-                myTarget.spriteImage2 = null;
-                myTarget.image2.sprite = texture;
+                myTarget.spriteImage2 = texture;
+              
             }
 
         }
@@ -109,21 +110,18 @@ public class PresentationScriptEditor : Editor
         EditorGUILayout.HelpBox("Chargez vos images à partir de vos dossiers en utilisant les deux boutons ci-dessus.", MessageType.Info);
 
 
-        if (myTarget.spriteImage1 != null)
-        {
-            myTarget.image1.sprite = myTarget.spriteImage1;
-        } 
-        if (myTarget.spriteImage2 != null)
-        {
-            myTarget.image2.sprite = myTarget.spriteImage2;
-        }
+        
 
 
         if (GUI.changed)
         {
-            EditorUtility.SetDirty(myTarget.text1);
-            EditorUtility.SetDirty(myTarget.text2);
-
+            
+            myTarget.image1.sprite = myTarget.spriteImage1;
+           
+            myTarget.image2.sprite = myTarget.spriteImage2;
+           
+            EditorUtility.SetDirty(myTarget);
+   
             Undo.RecordObject(myTarget, "Saving text");
         }
 

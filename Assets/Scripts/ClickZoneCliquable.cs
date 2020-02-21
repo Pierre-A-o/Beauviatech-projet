@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.Video;
 
 public class ClickZoneCliquable : MonoBehaviour
 {
@@ -28,15 +29,26 @@ public class ClickZoneCliquable : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && hit.collider.tag == "cliquable")
             {
                 FenetreInfo.SetActive(true);
-                Debug.Log(hit.collider.name[0]);
-                foreach(Transform child in viewPort.transform)
+                foreach (Transform child in viewPort.transform)
                 {
                     if (!child.name.StartsWith("" + hit.collider.name[0]))
                     {
                         child.gameObject.SetActive(false);
-                    } else
+                    }
+                    else
                     {
                         child.gameObject.SetActive(true);
+                        foreach (Transform chilfOfChild in child)
+                        {
+                            foreach (Transform chilfOfChildOfChild in chilfOfChild)
+                            {
+                                if (chilfOfChildOfChild.name.StartsWith("video"))
+                                {
+                                    chilfOfChildOfChild.GetComponent<VideoPlayer>().Play();
+                                    chilfOfChildOfChild.GetComponent<VideoPlayer>().Pause();
+                                }
+                            }
+                        }
                     }
                 }
                 foreach (Transform child in ongletPanel.transform)
@@ -44,15 +56,16 @@ public class ClickZoneCliquable : MonoBehaviour
                     if (!child.name.StartsWith("" + hit.collider.name[0]))
                     {
                         child.gameObject.SetActive(false);
-                    } else
+                    }
+                    else
                     {
                         child.gameObject.SetActive(true);
                     }
                 }
                 GetComponent<ManipulationController>().movingleft = true;
                 GetComponent<ManipulationController>().movingright = false;
+                GetComponent<ManipulationController>().movingbottom = false;
             }
         }
     }
-
 }

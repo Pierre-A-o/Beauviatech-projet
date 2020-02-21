@@ -1,7 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class TablModelGO : MonoBehaviour
 {
@@ -26,6 +30,28 @@ public class TablModelGO : MonoBehaviour
     public int IndexOnglet { get => indexOnglet; set => indexOnglet = value; }
     public TextMeshProUGUI Nom { get => nom; set => nom = value; }
     public List<Contenu> Contenu { get => contenu; set => contenu = value; }
+
+    public void PlayVideo(VideoPlayer c)
+    {
+       
+        if (c.isPlaying)
+        {
+            c.Pause();
+        }
+        else
+        {
+            c.Play();
+        }
+    }
+
+    public void AddListener(Contenu c)
+    {
+        Button myButton = c.Objet.GetComponent<Button>();
+        VideoPlayer myVideo = c.Objet.GetComponent<VideoPlayer>();
+        UnityAction<VideoPlayer> methodDelegate = Delegate.CreateDelegate(typeof(UnityAction<VideoPlayer>), this, "PlayVideo") as UnityAction<VideoPlayer>;
+        UnityEditor.Events.UnityEventTools.AddObjectPersistentListener(myButton.onClick, methodDelegate, myVideo);
+
+    }
 }
 
 [System.Serializable]

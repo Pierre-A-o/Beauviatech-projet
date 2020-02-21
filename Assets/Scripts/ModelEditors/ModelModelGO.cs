@@ -6,25 +6,27 @@ using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
+using UnityEngine.Video;
 
 public class ModelModelGO : MonoBehaviour
 {
+    [HideInInspector]
     public List<Interaction> interactions;
  
     public GameObject cameraModel;
     [HideInInspector]
     public GameObject prefabInteraction;
-  
+    [HideInInspector]
     public GameObject prefabOngletButton;
-    
+    [HideInInspector]
     public GameObject prefabOngletContent;
-    
+    [HideInInspector]
     public GameObject prefabContentInteraction;
-    
+    [HideInInspector]
     public GameObject prefabTabContainer;
-
+    [HideInInspector]
     public GameObject ongletPanel;
-
+    [HideInInspector]
     public GameObject viewPort;
 
 
@@ -51,6 +53,8 @@ public class ModelModelGO : MonoBehaviour
         else if (interactions.Count == 0)
         {
             i = 0;
+            maxI = 0;
+            maxJ = 0;
         }
         else
         {
@@ -133,21 +137,8 @@ public class ModelModelGO : MonoBehaviour
         interaction.onglets.Add(new Fenetre(j, instanceOngletButton.GetComponentInChildren<TextMeshProUGUI>(), new List<GameObject>()));
     }
 
-    public class doubleInt : UnityEngine.Object
-    {
-        public int contentInteraction;
-        public int tabContent;
-
-        public doubleInt(int a, int b)
-        {
-            contentInteraction = a;
-            tabContent = b;
-        }
-    }
-
     public void AfficherOnglet(int index)
     {
-        Debug.Log(index);
         foreach(Transform child in viewPort.transform)
         {
             if (child.gameObject.activeSelf)
@@ -157,6 +148,14 @@ public class ModelModelGO : MonoBehaviour
                     if (chilfOfChild.name.StartsWith("" + index))
                     {
                         chilfOfChild.GetComponent<CanvasGroup>().alpha = 1;
+                        foreach (Transform chilfOfChildOfChild in chilfOfChild)
+                        {
+                            if (chilfOfChildOfChild.name.StartsWith("video"))
+                            {
+                                chilfOfChildOfChild.GetComponent<VideoPlayer>().Play();
+                                chilfOfChildOfChild.GetComponent<VideoPlayer>().Pause();
+                            }
+                        }
                     } else
                     {
                         chilfOfChild.GetComponent<CanvasGroup>().alpha = 0;
@@ -166,17 +165,39 @@ public class ModelModelGO : MonoBehaviour
         }
     }
 
-    public void AjouteContenu(int i, int j, GameObject contenu)
+    public void AjouteContenu(int i, int j, GameObject myObj)
     {
-        Interaction interaction = interactions.Single(it => it.id == i);
-        Fenetre onglet = interaction.onglets.Single(on => on.id == j);
-        onglet.contenu.Add(contenu);
+        interactions.Single(it => it.id == i).onglets.Single(on => on.id == j).contenu.Add(myObj);
     }
 
     public void InstancieNouveauContenu(int interactionIndex, int ongletIndex)
     {
         Interaction interaction = interactions.ElementAt(interactionIndex);
         Fenetre onglet = interaction.onglets.ElementAt(ongletIndex);
+    }
+
+    public void RetireInteraction(int index)
+    {
+        Interaction i = interactions.Single(interaction => interaction.id == index);
+     
+        GameObject toDestroyTabContainer = ongletPanel.transform.Find(index + "TabContainer(Clone)").gameObject;
+        GameObject toDestroyZoneClique = cameraModel.transform.Find(index + "ZoneClick(Clone)").gameObject;
+        GameObject toDestroyContentInteraction = viewPort.transform.Find(index + "ContentInteraction(Clone)").gameObject;
+        DestroyImmediate(toDestroyTabContainer);
+        DestroyImmediate(toDestroyZoneClique);
+        DestroyImmediate(toDestroyContentInteraction);
+        interactions.Remove(i);
+    }
+
+    public void RetireOnglet(int indexInteraction, int indexOnglet)
+    {
+        Interaction i = interactions.Single(interaction => interaction.id == indexInteraction);
+        Fenetre f = i.onglets.Single(fenetre => fenetre.id == indexOnglet);
+
+        GameObject toDestroyTabContent= viewPort.transform.Find(indexInteraction + "ContentInteraction(Clone)").gameObject.transform.Find(indexOnglet+"TabContent(Clone)").gameObject;
+        DestroyImmediate(toDestroyTabContent);
+        interactions.Single(interaction => interaction.id == indexInteraction).onglets.Remove(f);
+
     }
 }
 

@@ -11,6 +11,10 @@ public class SceneChangeMenu : MonoBehaviour
 
     void Update(){}
 
+    public void loadAccueil()
+    {
+        loadScene("Accueil");
+    }
     public void loadFirstCameraScene(){
           loadScene("FirstCameraScene");
     }

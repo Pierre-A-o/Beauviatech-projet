@@ -26,7 +26,6 @@ public class PanelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (MainCamera.transform.position == transition_goal)
         {
             transitioning = false;
@@ -39,6 +38,9 @@ public class PanelManager : MonoBehaviour
 
     public void DisparitionP()
     {
+        GetComponent<ManipulationController>().movingbottom = false;
+        GetComponent<ManipulationController>().movingleft = false;
+        GetComponent<ManipulationController>().movingright = true;
         StartCoroutine(DisparitionPanel());
     }
 
@@ -46,6 +48,7 @@ public class PanelManager : MonoBehaviour
     {
         if (!InfoPanel.activeSelf)
         {
+            GetComponent<FilmoController>().GoToPrincipal();
             myCamera.SetActive(false);
             transition_goal = PanelInterviews.transform.position + distanceCameraPanel;
             GetComponent<ManipulationController>().isInterviewCurrentScene = true;
@@ -68,8 +71,6 @@ public class PanelManager : MonoBehaviour
 
     IEnumerator DisparitionPanel()
     {
-        GetComponent<ManipulationController>().movingleft = false;
-        GetComponent<ManipulationController>().movingright = true;
         InfoPanelAnimator.SetTrigger("Disparition");
         yield return new WaitForSeconds(1);
         InfoPanel.SetActive(false);

@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -39,7 +40,7 @@ public class TabScriptEditor : Editor
         }
         else
         {
-            foreach (Contenu c in myTarget.Contenu)
+            foreach (Contenu c in myTarget.Contenu.ToList())
             {
                 if (c.Id > max)
                 {
@@ -105,7 +106,7 @@ public class TabScriptEditor : Editor
             myVideo.AddComponent<RawImage>();
             myVideo.AddComponent<VideoPlayer>();
             myVideo.GetComponent<VideoPlayer>().playOnAwake = false;
-
+            myVideo.AddComponent<Button>();
             string filename = "renderTexture" + (myTarget.Contenu.Count + 1);
 
             RenderTexture rt = new RenderTexture(256, 256, 16, RenderTextureFormat.ARGB32);
@@ -125,7 +126,10 @@ public class TabScriptEditor : Editor
             }
             myVideo.GetComponent<VideoPlayer>().targetTexture = Resources.Load<RenderTexture>("Videos/" + filename);
             myVideo.GetComponent<RawImage>().texture = Resources.Load<Texture>("Videos/" + filename);
+
+
             Contenu contenu = new Contenu(i, myVideo);
+            myTarget.AddListener(contenu);
             myTarget.Contenu.Add(contenu);
             theModel.GetComponent<ModelModelGO>().AjouteContenu(myTarget.IndexInteraction, myTarget.IndexOnglet, myVideo);
         }
@@ -222,6 +226,8 @@ public class TabScriptEditor : Editor
 
             else if (go.Objet.GetComponent<VideoPlayer>() != null)
             {
+                EditorGUILayout.LabelField("Film "+ (myTarget.Contenu.IndexOf(go) + 1), "");
+
                 if (GUILayout.Button("Charger film " + (myTarget.Contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
                 {
                     string file = EditorUtility.OpenFilePanel("Film " + (myTarget.Contenu.IndexOf(go) + 1), Application.dataPath + "/Resources/Videos", "mp4");
@@ -280,6 +286,8 @@ public class TabScriptEditor : Editor
             Undo.RecordObject(myTarget, "Saving text");
         }
     }
+
+   
 
     void DrawUILine(Color color, int thickness = 2, int padding = 10)
     {

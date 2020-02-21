@@ -28,7 +28,8 @@ public class HamburgerMenuMovement : MonoBehaviour
     {
         if (isRevealed){
             hideOrRevealMenu(revealedPosition, hiddenPosition);
-        }else{
+        }else
+        {
             hideOrRevealMenu(hiddenPosition, revealedPosition);
         }
     }
@@ -55,5 +56,17 @@ public class HamburgerMenuMovement : MonoBehaviour
      public void clickOnHamburgerButton()
      {
         isRevealed = !isRevealed;
+        if (isRevealed && GetComponent<ManipulationController>().movingleft == true)
+        {
+            
+            GetComponent<ManipulationController>().movingbottom = true;
+            GetComponent<ManipulationController>().movingleft = false;
+            GetComponent<ManipulationController>().movingright = false;
+        } else if (!isRevealed && GetComponent<ManipulationController>().movingbottom == true)
+        {
+            GetComponent<ManipulationController>().movingbottom = false;
+            GetComponent<ManipulationController>().movingleft = true;
+            GetComponent<ManipulationController>().movingright = false;
+        }
      }
 }
