@@ -230,7 +230,7 @@ public class TabScriptEditor : Editor
 
                 if (GUILayout.Button("Charger film " + (myTarget.Contenu.IndexOf(go) + 1), new GUILayoutOption[] { GUILayout.MaxWidth(400.0f) }))
                 {
-                    string file = EditorUtility.OpenFilePanel("Film " + (myTarget.Contenu.IndexOf(go) + 1), Application.dataPath + "/Resources/Videos", "mp4");
+                    string file = EditorUtility.OpenFilePanel("Film " + (myTarget.Contenu.IndexOf(go) + 1), Application.dataPath + "/Resources/Videos", "mp4,asf,avi,dv,m4v,mov,mpg,mpeg,ogv,webm,wmw");
 
                     if (file != null)
                     {
