@@ -40,14 +40,14 @@ public class ClickZoneCliquable : MonoBehaviour
                         child.gameObject.SetActive(true);
                         foreach (Transform chilfOfChild in child)
                         {
-                            foreach (Transform chilfOfChildOfChild in chilfOfChild)
+                            if (chilfOfChild.name.StartsWith("0"))
                             {
-                                if (chilfOfChildOfChild.name.StartsWith("video"))
-                                {
-                                    chilfOfChildOfChild.GetComponent<VideoPlayer>().Play();
-                                    chilfOfChildOfChild.GetComponent<VideoPlayer>().Pause();
-                                }
+                                chilfOfChild.gameObject.GetComponent<CanvasGroup>().alpha = 1;
+                            } else
+                            {
+                                chilfOfChild.gameObject.GetComponent<CanvasGroup>().alpha = 0;
                             }
+
                         }
                     }
                 }
@@ -62,9 +62,17 @@ public class ClickZoneCliquable : MonoBehaviour
                         child.gameObject.SetActive(true);
                     }
                 }
-                GetComponent<ManipulationController>().movingleft = true;
-                GetComponent<ManipulationController>().movingright = false;
-                GetComponent<ManipulationController>().movingbottom = false;
+                if (GetComponent<HamburgerMenuMovement>().isRevealed)
+                {
+                    GetComponent<ManipulationController>().movingleft = false;
+                    GetComponent<ManipulationController>().movingright = false;
+                    GetComponent<ManipulationController>().movingbottom = true;
+                } else
+                {
+                    GetComponent<ManipulationController>().movingleft = true;
+                    GetComponent<ManipulationController>().movingright = false;
+                    GetComponent<ManipulationController>().movingbottom = false;
+                }
             }
         }
     }

@@ -53,8 +53,9 @@ public class InterviewModelGO : MonoBehaviour
         instanceInterview.name = i + instanceInterview.name;
 
         UnityAction<int> methodDelegate1 = Delegate.CreateDelegate(typeof(UnityAction<int>), this, "AfficherInterview") as UnityAction<int>;
+#if UNITY_EDITOR
         UnityEditor.Events.UnityEventTools.AddIntPersistentListener(instanceInterview.GetComponentInChildren<Button>().onClick, methodDelegate1, i);
-
+ #endif
         interviews.Add(new Interview(i, instanceInterview.transform.Find("TitreText").GetComponent<TextMeshProUGUI>(), instanceInterview.GetComponentInChildren<Button>(), instanceInterview.GetComponent<Image>()));
     }
 

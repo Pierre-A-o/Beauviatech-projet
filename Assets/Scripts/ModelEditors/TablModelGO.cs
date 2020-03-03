@@ -49,8 +49,9 @@ public class TablModelGO : MonoBehaviour
         Button myButton = c.Objet.GetComponent<Button>();
         VideoPlayer myVideo = c.Objet.GetComponent<VideoPlayer>();
         UnityAction<VideoPlayer> methodDelegate = Delegate.CreateDelegate(typeof(UnityAction<VideoPlayer>), this, "PlayVideo") as UnityAction<VideoPlayer>;
+#if UNITY_EDITOR
         UnityEditor.Events.UnityEventTools.AddObjectPersistentListener(myButton.onClick, methodDelegate, myVideo);
-
+#endif
     }
 }
 

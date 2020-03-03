@@ -82,11 +82,11 @@ public class FilmographieModelGO : MonoBehaviour
 
         UnityAction<int> methodDelegate1 = Delegate.CreateDelegate(typeof(UnityAction<int>), this, "AfficherFilm") as UnityAction<int>;
         UnityAction methodDelegate2 = Delegate.CreateDelegate(typeof(UnityAction), this, "ControleVideo") as UnityAction;
-
+#if UNITY_EDITOR        
         UnityEditor.Events.UnityEventTools.AddIntPersistentListener(instanceBouton.GetComponentInChildren<Button>().onClick,methodDelegate1,i);
 
         UnityEditor.Events.UnityEventTools.AddPersistentListener(instanceFilm.GetComponentInChildren<Button>().onClick, methodDelegate2);
-
+#endif
         elements.Add(new Film(i, instanceFilm.transform.Find("FilmTitre").GetComponent<TextMeshProUGUI>(),instanceBouton.GetComponent<Image>(), instanceFilm.GetComponentInChildren<RawImage>(), instanceFilm.transform.Find("DetailsTexte").GetComponent<TextMeshProUGUI>()));
     }
 

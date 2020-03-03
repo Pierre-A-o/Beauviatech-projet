@@ -124,8 +124,9 @@ public class ModelModelGO : MonoBehaviour
         instanceOngletContent = Instantiate(prefabOngletContent, myContent.transform);
         instanceOngletContent.name = j + instanceOngletContent.name;
         UnityAction<int> methodDelegate = Delegate.CreateDelegate(typeof(UnityAction<int>), this, "AfficherOnglet") as UnityAction<int>;
+#if UNITY_EDITOR
         UnityEditor.Events.UnityEventTools.AddIntPersistentListener(instanceOngletButton.GetComponentInChildren<Button>().onClick, methodDelegate, j);
-        
+#endif
         instanceOngletContent.AddComponent<GridLayoutGroup>();
         instanceOngletContent.GetComponent<GridLayoutGroup>().cellSize = new Vector2(500f, 112f);
         instanceOngletContent.AddComponent<ResizeContents>();

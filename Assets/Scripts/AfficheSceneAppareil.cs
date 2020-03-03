@@ -6,15 +6,13 @@ using UnityEngine.SceneManagement;
 public class AfficheSceneAppareil : MonoBehaviour
 {
 
-    public Object SceneACharger;
-
     public GestionMode bool3D;
 
-    public void afficherScene(Object SceneACharger)
+    public void afficherScene()
     {
         if (bool3D.Active3D)
         {
-            SceneManager.LoadScene(SceneACharger.name);
+            SceneManager.LoadScene(1);
         }
         else
         {

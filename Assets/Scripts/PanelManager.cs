@@ -9,7 +9,6 @@ public class PanelManager : MonoBehaviour
     public float speedTransi = 2;
     public GameObject InfoPanel;
     public GameObject PanelSceneModel;
-    public GameObject PanelFilmo;
     public GameObject PanelInterviews;
     public Camera MainCamera;
     private bool transitioning;

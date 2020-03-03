@@ -29,10 +29,10 @@ public class ManipulationController : MonoBehaviour
     private RotationAxes axes = RotationAxes.MouseXAndY;
     private float sensitivityX = 5F;
     private float sensitivityY = 5F;
-    private float minimumX = -150F;
-    private float maximumX = 150F;
-    private float minimumY = -150F;
-    private float maximumY = 150F;
+    private float minimumX = -360F;
+    private float maximumX = 360F;
+    private float minimumY = -90F;
+    private float maximumY = 90F;
     private float rotationX = 0F;
     private float rotationY = 0F;
     Quaternion originalRotation;

@@ -7,6 +7,7 @@ public class HamburgerMenuMovement : MonoBehaviour
     public GameObject menuPanel;
     public GameObject hiddenPosition;
     public GameObject revealedPosition;
+    public GameObject infoPanel;
 
     
     public bool isRevealed;
@@ -56,9 +57,8 @@ public class HamburgerMenuMovement : MonoBehaviour
      public void clickOnHamburgerButton()
      {
         isRevealed = !isRevealed;
-        if (isRevealed && GetComponent<ManipulationController>().movingleft == true)
+        if (isRevealed && infoPanel.activeSelf)
         {
-            
             GetComponent<ManipulationController>().movingbottom = true;
             GetComponent<ManipulationController>().movingleft = false;
             GetComponent<ManipulationController>().movingright = false;

@@ -16,19 +16,19 @@ public class SceneChangeMenu : MonoBehaviour
         loadScene("Accueil");
     }
     public void loadFirstCameraScene(){
-          loadScene("FirstCameraScene");
+          loadScene("Scene1");
     }
 
     public void loadSecondCameraScene(){
-          loadScene("SecondCameraScene");
+          loadScene("Scene2");
     }
 
     public void loadThirdCameraScene(){
-          loadScene("ThirdCameraScene");
+          loadScene("Scene3");
     }
 
     public void loadMicroScene(){
-          loadScene("MicroScene");
+          loadScene("Scene4");
     }
 
     private void loadScene(string sceneName)
