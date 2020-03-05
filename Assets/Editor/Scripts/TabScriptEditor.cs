@@ -78,6 +78,7 @@ public class TabScriptEditor : Editor
             myParagraphe.AddComponent<TextMeshProUGUI>();
             myParagraphe.GetComponent<TextMeshProUGUI>().enableAutoSizing = true;
             myParagraphe.GetComponent<TextMeshProUGUI>().alignment = TextAlignmentOptions.Justified;
+            myParagraphe.GetComponent<TextMeshProUGUI>().fontSizeMin = 0;
             Contenu contenu = new Contenu(i, myParagraphe);
             myTarget.Contenu.Add(contenu);
             theModel.GetComponent<ModelModelGO>().AjouteContenu(myTarget.IndexInteraction, myTarget.IndexOnglet, myParagraphe);

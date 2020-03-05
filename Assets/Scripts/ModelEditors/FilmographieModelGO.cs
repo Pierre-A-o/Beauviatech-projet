@@ -140,6 +140,8 @@ public class FilmographieModelGO : MonoBehaviour
         }
         videoPlayer.clip = film.videoClip;
         videoPlayer.Play();
+        videoPlayer.Stop();
+        videoPlayer.Play();
         videoPlayer.Pause();
         panelDescription.SetActive(false);
         panelExtraitFilm.SetActive(true);

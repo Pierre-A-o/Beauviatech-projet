@@ -25,7 +25,7 @@ public class ModelScriptEditor : Editor
     static void OnSceneGUI( SceneView sceneView)
     {
 
-        if (EditorSceneManager.GetActiveScene().name.Equals("SceneTestRegroupement"))
+        if (EditorSceneManager.GetActiveScene().name.StartsWith("Scene"))
         {
             if (Event.current.button == 1)
             {

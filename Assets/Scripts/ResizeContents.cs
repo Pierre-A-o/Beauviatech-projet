@@ -10,7 +10,8 @@ public class ResizeContents : MonoBehaviour
     {
         GetComponent<GridLayoutGroup>().constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         GetComponent<GridLayoutGroup>().constraintCount = 1;
-        GetComponent<GridLayoutGroup>().cellSize = new Vector2(500f, 112f);
+        GetComponent<GridLayoutGroup>().cellSize = new Vector2(480F, 200F);
+        GetComponent<GridLayoutGroup>().spacing = new Vector2(0F, 20F);
     }
 
     // Update is called once per frame
