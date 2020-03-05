@@ -10,13 +10,7 @@ public class ResizeContents : MonoBehaviour
     {
         GetComponent<GridLayoutGroup>().constraint = GridLayoutGroup.Constraint.FixedColumnCount;
         GetComponent<GridLayoutGroup>().constraintCount = 1;
-        if (gameObject.transform.childCount > 0)
-        {
-            GetComponent<GridLayoutGroup>().cellSize = new Vector2(500f, 335 / gameObject.transform.childCount);
-        } else
-        {
-            GetComponent<GridLayoutGroup>().cellSize = new Vector2(500f, 335);
-        }
+        GetComponent<GridLayoutGroup>().cellSize = new Vector2(500f, 112f);
     }
 
     // Update is called once per frame
