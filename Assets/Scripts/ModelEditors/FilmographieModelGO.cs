@@ -9,6 +9,7 @@ using System;
 
 public class FilmographieModelGO : MonoBehaviour
 {
+    [HideInInspector]
     public TextMeshProUGUI description;
     public List<Film> elements;
 
@@ -19,28 +20,25 @@ public class FilmographieModelGO : MonoBehaviour
     private GameObject instanceFilm;
     
     private GameObject instanceBouton;
-
+    [HideInInspector]
     public GameObject prefabFilm;
-    
+    [HideInInspector]
     public GameObject prefabBoutonFilm;
-    
+    [HideInInspector]
     public RenderTexture renderVideo;
-    
+    [HideInInspector]
     public GameObject panelPresentation;
-    
+    [HideInInspector]
     public GameObject listeExtraitFilms;
-    
+    [HideInInspector]
     public GameObject panelDescription;
-    
+    [HideInInspector]
     public GameObject listeDeFilms;
-    
+    [HideInInspector]
     public GameObject panelExtraitFilm;
 
-    
+    [HideInInspector]
     public VideoPlayer videoPlayer;
-
-
-
 
     public TextMeshProUGUI Description { get => description; set => description = value; }
   
@@ -87,7 +85,7 @@ public class FilmographieModelGO : MonoBehaviour
 
         UnityEditor.Events.UnityEventTools.AddPersistentListener(instanceFilm.GetComponentInChildren<Button>().onClick, methodDelegate2);
 #endif
-        elements.Add(new Film(i, instanceFilm.transform.Find("FilmTitre").GetComponent<TextMeshProUGUI>(),instanceBouton.GetComponent<Image>(), instanceFilm.GetComponentInChildren<RawImage>(), instanceFilm.transform.Find("DetailsTexte").GetComponent<TextMeshProUGUI>()));
+        elements.Add(new Film(i, instanceFilm.transform.Find("FilmTitre").GetComponent<TextMeshProUGUI>(),instanceBouton.GetComponent<Image>(), instanceFilm.GetComponentInChildren<RawImage>(), instanceFilm.transform.Find("DetailsTexte").GetComponent<TextMeshProUGUI>(), ""));
     }
 
     public void ControleVideo()
@@ -111,7 +109,6 @@ public class FilmographieModelGO : MonoBehaviour
     /// <param name="index">Index du film à supprimer.</param>
     public void RemoveIndex(int index)
     {
-        Debug.Log(index + "AfficheFilm(Clone)");
         Film filmToDestroy = elements.Single(fi => fi.id == index);
         GameObject toDestroyFilm =  panelExtraitFilm.transform.Find(filmToDestroy.id + "AfficheFilm(Clone)").gameObject;
         GameObject toDestroyBouton = listeExtraitFilms.transform.Find(filmToDestroy.id + "BoutonExtraitFilmo(Clone)").gameObject;
@@ -138,13 +135,11 @@ public class FilmographieModelGO : MonoBehaviour
                 panelExtraitFilm.transform.Find(f.id + "AfficheFilm(Clone)").GetComponent<CanvasGroup>().alpha = 0;
             }
         }
-        videoPlayer.clip = film.videoClip;
-        videoPlayer.Play();
-        videoPlayer.Stop();
-        videoPlayer.Play();
-        videoPlayer.Pause();
+        videoPlayer.url = System.IO.Path.Combine(Application.streamingAssetsPath, film.filename);
         panelDescription.SetActive(false);
         panelExtraitFilm.SetActive(true);
+        videoPlayer.aspectRatio = VideoAspectRatio.Stretch;
+        videoPlayer.Play();
     }
 
 
@@ -153,26 +148,31 @@ public class FilmographieModelGO : MonoBehaviour
 [System.Serializable]
 public class Film
 {
-    
+    [HideInInspector]
     public TextMeshProUGUI titre;
-    
+    [HideInInspector]
     public Image image;
     public Sprite spriteImage;
+    [HideInInspector]
     public RawImage video;
-    
+    [HideInInspector]
     public TextMeshProUGUI description;
+    [HideInInspector]
     public int id;
+    [HideInInspector]
+    public string filename;
 
     public VideoClip videoClip;
 
 
-    public Film(int id, TextMeshProUGUI titre, Image image, RawImage video, TextMeshProUGUI description)
+    public Film(int id, TextMeshProUGUI titre, Image image, RawImage video, TextMeshProUGUI description, string filename)
     {
         this.id = id;
         this.titre = titre;
         this.image = image;
         this.video = video;
         this.description = description;
+        this.filename = filename;
     }
 
     public TextMeshProUGUI Titre { get => titre; set => titre = value; }
@@ -180,4 +180,5 @@ public class Film
     public RawImage Video { get => video; set => video = value; }
     public TextMeshProUGUI DescElement { get => description; set => description = value; }
     public int Id { get => id; set => id = value; }
+    public string Filename { get => filename; set => filename = value; }
 }

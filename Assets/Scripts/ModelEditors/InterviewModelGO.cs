@@ -56,15 +56,15 @@ public class InterviewModelGO : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.Events.UnityEventTools.AddIntPersistentListener(instanceInterview.GetComponentInChildren<Button>().onClick, methodDelegate1, i);
  #endif
-        interviews.Add(new Interview(i, instanceInterview.transform.Find("TitreText").GetComponent<TextMeshProUGUI>(), instanceInterview.GetComponentInChildren<Button>(), instanceInterview.GetComponent<Image>()));
+        interviews.Add(new Interview(i, instanceInterview.transform.Find("TitreText").GetComponent<TextMeshProUGUI>(), instanceInterview.GetComponentInChildren<Button>(), instanceInterview.GetComponent<Image>(), ""));
     }
 
     public void AfficherInterview(int id)
     {
-        Debug.Log("YO");
         Interview interview = interviews.Single(it => it.id == id);
         popVideo.SetActive(true);
-        popVideo.GetComponentInChildren<VideoPlayer>().clip = interview.video;
+        popVideo.GetComponentInChildren<VideoPlayer>().url = System.IO.Path.Combine(Application.streamingAssetsPath, interview.filename);
+        popVideo.GetComponentInChildren<VideoPlayer>().Play();
     }
 
     public void RetireInterview(int id)
@@ -81,21 +81,23 @@ public class Interview
 {
     public TextMeshProUGUI titre;
     public Button lectureButton;
-    public VideoClip video;
     public Image miniature;
+    public string filename;
     [HideInInspector]
     public int id;
 
-    public Interview(int id, TextMeshProUGUI titre, Button lectureButton, Image miniature)
+    public Interview(int id, TextMeshProUGUI titre, Button lectureButton, Image miniature, string filename)
     {
         this.id = id;
         this.titre = titre;
         this.lectureButton = lectureButton;
         this.miniature = miniature;
+        this.filename = filename;
     }
 
     public TextMeshProUGUI Titre { get => titre; set => titre = value; }
     public Button LectureButton { get => lectureButton; set => lectureButton = value; }
     public Image Miniature { get => miniature; set => miniature = value; }
     public int Id { get => id; set => id = value; }
+    public string Filename { get => filename; set => filename = value; }
 }

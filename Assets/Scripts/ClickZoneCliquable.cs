@@ -43,7 +43,15 @@ public class ClickZoneCliquable : MonoBehaviour
                             if (chilfOfChild.name.StartsWith("0"))
                             {
                                 chilfOfChild.gameObject.GetComponent<CanvasGroup>().alpha = 1;
-                            } else
+                                foreach (Transform childOfChildOfChild in chilfOfChild)
+                                {
+                                    if (childOfChildOfChild.name.StartsWith("Video"))
+                                    {
+                                        childOfChildOfChild.GetComponent<VideoPlayer>().Play();
+                                        childOfChildOfChild.GetComponent<VideoPlayer>().Pause();
+                                    }
+                                }
+                                } else
                             {
                                 chilfOfChild.gameObject.GetComponent<CanvasGroup>().alpha = 0;
                             }

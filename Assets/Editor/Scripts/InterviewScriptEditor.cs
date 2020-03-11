@@ -86,17 +86,14 @@ public class InterviewScriptEditor : Editor
                     string finalFinal = final + '.' + stringTab[stringTab.Length - 1];
 
 
-                    if (!File.Exists("Assets/Resources/Videos/" + finalFinal))
+                    if (!File.Exists("Assets/StreamingAssets/" + finalFinal))
                     {
-                        File.Copy(file, "Assets/Resources/Videos/" + finalFinal);
+                        File.Copy(file, "Assets/StreamingAssets/" + finalFinal);
                     }
                     
                     AssetDatabase.Refresh();
-                    AssetDatabase.ImportAsset("Assets/Resources/Videos/" + finalFinal, ImportAssetOptions.ImportRecursive);
-                    
-                    VideoClip video = Resources.Load<VideoClip>("Videos/" + final);
-                
-                    myTarget.interviews[index].video = video;
+                    AssetDatabase.ImportAsset("Assets/StreamingAssets/" + finalFinal, ImportAssetOptions.ImportRecursive);
+                    myTarget.interviews[index].filename = finalFinal;
                 }
 
             }
